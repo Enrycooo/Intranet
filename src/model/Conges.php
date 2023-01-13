@@ -16,6 +16,21 @@ class Conge
     public string $duree;
     public string $commentaire;
     public string $libelle;
+    public string $raison;
+    public string $etat;
+    public string $employe;
+}
+
+class Crud
+{
+    public int $id_conges;
+    public string $date_debut;
+    public string $date_fin;
+    public string $duree;
+    public string $commentaire;
+    public string $raison;
+    public string $etat;
+    public string $employe;
 }
 
 class Conges_Model
@@ -69,7 +84,7 @@ class Conges_Model
             $stmt->execute();
             
             $row = $stmt->fetch();
-            $conge = new Conges();
+            $conge = new Conge();
             $conge->id_conges = $row['id_conges'];
             $conge->id_employe = $row['id_employe'];
             $conge->date_debut = $row['date_debut'];
@@ -94,6 +109,34 @@ class Conges_Model
                 }
 
                 return $raisons;
+        }
+        
+        public function getCrud(){
+                $stmt= $this->connection->getConnection()->query("
+                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, E.libelle AS etat, EM.nom
+                    FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
+                    INNER JOIN etat E ON C.id_etat = E.id_etat
+                    INNER JOIN employe EM ON C.id_employe = EM.id_employe;
+                    ");
+                
+                $cruds = [];
+                while (($row = $stmt->fetch())) {
+                    $date_debut = date("d-m-Y", strtotime($row['date_debut']));
+                    $date_fin = date("d-m-Y", strtotime($row['date_fin']));
+                    $crud = new Crud();
+                    $crud->id_conges = $row['id_conges'];
+                    $crud->date_debut = $date_debut;
+                    $crud->date_fin = $date_fin;
+                    $crud->commentaire = $row['commentaire'];
+                    $crud->duree = $row['duree'];
+                    $crud->raison = $row['raison'];
+                    $crud->etat = $row['etat'];
+                    $crud->employe = $row['nom'];
+                    
+                    $cruds[] = $crud;
+                }
+                
+                return $cruds;
         }
 		
 }
