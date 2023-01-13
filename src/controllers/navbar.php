@@ -13,6 +13,6 @@ class Navbar
 {
     public function execute()
     {
-        require('templates/navbar.php');
+        require('templates/header/navbar.php');
     }
 }

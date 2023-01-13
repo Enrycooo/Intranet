@@ -58,7 +58,7 @@ class CreateUser
         $managers = $managerModel->getManagers();
         
         if($_SESSION['username'] !== ""){
-        require('templates/createuser.php');
+        require('templates/Users/createuser.php');
         }else{
             header("Location: index.php");
         }
