@@ -1,6 +1,4 @@
 <?php ob_start();?>
-<link rel="stylesheet" href="assets/css/style.css">
-
 
 <div class="container-fluid px-4 py-2">
     <div class="row d-flex justify-content-center">
