@@ -42,7 +42,7 @@ try {
             } else {
                 throw new Exception('Erreur de connexion au site');
             }
-        }elseif($_GET['action'] === 'createUser'){
+        }elseif($_GET['action'] === 'createUser' && $_SESSION['id_poste'] == 1){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
@@ -68,7 +68,7 @@ try {
             } else {
                 throw new Exception('Erreur de connexion');
             }
-        }elseif($_GET['action'] === 'crudconges'){
+        }elseif($_GET['action'] === 'crudconges' && $_SESSION['id_poste'] == 1){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 

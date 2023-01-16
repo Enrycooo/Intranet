@@ -28,7 +28,9 @@ class Login{
                 {
                         $_SESSION['username'] = $username;
                         $_SESSION['id'] = $users->id_employe;
+                        $_SESSION['id_poste'] = $users->id_poste;
                         $id = $_SESSION['id'];
+                        $poste = $_SESSION['id_poste'];
                         header("Location: index.php?action=connected&id=$id");
                 }else{
                     throw new \Exception('Votre compte est désactivée ou alors le nom d\'utilisateur et/ou le mot de passe sont incorrectes !');
