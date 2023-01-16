@@ -13,6 +13,10 @@ class Navbar
 {
     public function execute()
     {
-        require('templates/header/navbar.php');
+        if($_SESSION['username'] !== ""){
+            require('templates/header/navbar.php');
+        }else{
+            header("Location: index.php");
+        }
     }
 }

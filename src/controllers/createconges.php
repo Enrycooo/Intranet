@@ -48,8 +48,8 @@ class CreateConges
         $raisonModel->connection = new DatabaseConnection();
         $raisons = $raisonModel->getRaisons();
         
-        if($_SESSION['username'] !== ""){
-        require('templates/Conges/createconges.php');
+        if($_SESSION['id'] !== ""){
+            require('templates/Conges/createconges.php');
         }else{
             header("Location: index.php");
         }

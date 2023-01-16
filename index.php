@@ -80,6 +80,7 @@ try {
         }elseif($_GET['action'] === 'deconnection'){
             (new Mainpage())->logout();
         }else {
+            (new Navbar())->execute();
             throw new Exception("La page que vous recherchez n'existe pas.");
         }
     } else {
