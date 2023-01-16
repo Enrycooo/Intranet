@@ -21,7 +21,7 @@
             </li>
           </ul>
             <li class="nav-item">
-              <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Demander un congés</a>
+              <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>">Demander un congés</a>
             </li>
           <li class="nav-item ms-3">
               <a class="btn btn-primary btn-rounded" href='index.php?action=deconnection'><span>Se déconnecter</span></a>

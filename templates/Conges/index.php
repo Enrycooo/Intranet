@@ -3,7 +3,7 @@
     <div class="row mt-4">
       <div class="col-lg-12 d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="text-primary">Toutes les demandes de congés !</h4>
+          <h4 class="text-primary">Toutes les demandes de congés en attente !</h4>
         </div>
           <div>
               <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
@@ -46,7 +46,7 @@
                     <td><?= $crud->raison ?></td>
                     <td><?= $crud->etat ?></td>
                     <td><?= $crud->commentaire ?></td>
-                    <td><?= $crud->employe ?></td>
+                    <td><?= $crud->nom ." ". $crud->prenom?></td>
                     <td>
                         <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Accepter</a>
                         <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Refuser</a>

@@ -25,6 +25,8 @@ class CreateConges
                 $id_raison = $input['id_raison'];
                 $date_debut = $input['date_debut'];
                 $date_fin = $input['date_fin'];
+                $debut_type = $input['debut_type'];
+                $fin_type = $input['fin_type'];
                 $duree = $input['duree'];
                 $commentaire = $input['commentaire'];
             } else {
@@ -33,7 +35,7 @@ class CreateConges
 
             $congesModel = new Conges_model();
             $congesModel->connection = new DatabaseConnection();
-            $success = $congesModel->createConge($id_employe, $id_raison, $date_debut, $date_fin, $duree, $commentaire);
+            $success = $congesModel->createConge($id_employe, $id_raison, $date_debut, $date_fin, $debut_type, $fin_type, $duree, $commentaire);
             if (!$success) {
                 throw new \Exception('Impossible d\'ajouter le conges !');
             } else {

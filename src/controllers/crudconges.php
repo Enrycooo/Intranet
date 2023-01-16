@@ -16,7 +16,7 @@ class CrudConges
         
         $crudModel = new Conges_model();
         $crudModel->connection = new DatabaseConnection();
-        $cruds = $crudModel->getCrud();
+        $cruds = $crudModel->getCrudEnAttente();
         
         if($_SESSION['id'] !== ""){
             require('templates/Conges/index.php');

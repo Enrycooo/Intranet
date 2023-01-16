@@ -37,17 +37,19 @@ class Conges_Model
 {
         public DatabaseConnection $connection;
         
-	public function createConge(int $id_employe, int $id_raison, string $date_debut, string $date_fin, string $duree, string $commentaire)
+	public function createConge(int $id_employe, int $id_raison, string $date_debut, string $date_fin, string $debut_type, string $fin_type, string $duree, string $commentaire)
 	{
                 $stmt = $this->connection->getConnection()->prepare(
-                "INSERT INTO conges(id_employe, id_raison, id_etat, date_debut, date_fin, duree, commentaire)
-                VALUES(:id_employe, :id_raison, 2, :date_debut, :date_fin, :duree, :commentaire)"
+                "INSERT INTO conges(id_employe, id_raison, id_etat, date_debut, date_fin, debut_type, fin_type, duree, commentaire)
+                VALUES(:id_employe, :id_raison, 2, :date_debut, :date_fin, :debut_type, :fin_type, :duree, :commentaire)"
                 );
+                
                 $stmt->bindValue(':id_employe', $id_employe);
                 $stmt->bindValue(':id_raison', $id_raison);
                 $stmt->bindValue(':date_debut', $date_debut);
                 $stmt->bindValue(':date_fin', $date_fin);
-                $stmt->bindValue(':id_raison', $id_raison);
+                $stmt->bindValue(':debut_type', $debut_type);
+                $stmt->bindValue(':fin_type', $fin_type);
                 $stmt->bindValue(':duree', $duree);
                 $stmt->bindValue(':commentaire', $commentaire);
                 $affectedLines = $stmt->execute();
@@ -111,12 +113,13 @@ class Conges_Model
                 return $raisons;
         }
         
-        public function getCrud(){
+        public function getCrudEnAttente(){
                 $stmt= $this->connection->getConnection()->query("
-                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, E.libelle AS etat, EM.nom
+                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, E.libelle AS etat, EM.nom, EM.prenom
                     FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
                     INNER JOIN etat E ON C.id_etat = E.id_etat
-                    INNER JOIN employe EM ON C.id_employe = EM.id_employe;
+                    INNER JOIN employe EM ON C.id_employe = EM.id_employe
+                    WHERE C.id_etat = 2;
                     ");
                 
                 $cruds = [];
@@ -131,7 +134,8 @@ class Conges_Model
                     $crud->duree = $row['duree'];
                     $crud->raison = $row['raison'];
                     $crud->etat = $row['etat'];
-                    $crud->employe = $row['nom'];
+                    $crud->nom = $row['nom'];
+                    $crud->prenom = $row['prenom'];
                     
                     $cruds[] = $crud;
                 }
