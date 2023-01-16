@@ -1,10 +1,11 @@
 <?php ob_start(); ?>
+
 <div class="vh-100 d-flex justify-content-center align-items-center">
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-12 col-md-8 col-lg-6">
-        <div class="border border-3 border-primary"></div>
         <div class="card bg-white shadow-lg">
+         <div class="border border-1 border-primary"></div>
           <div class="card-body p-5">
             <form name="form1" action='index.php?action=connection' method='post' class="mb-3 mt-md-4">
               <h2 class="fw-bold mb-2 text-uppercase ">Intranet</h2>
@@ -28,6 +29,7 @@
     </div>
   </div>
 </div>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('layout.php') ?>

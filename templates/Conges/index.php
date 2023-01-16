@@ -3,7 +3,17 @@
     <div class="row mt-4">
       <div class="col-lg-12 d-flex justify-content-between align-items-center">
         <div>
+            <?php
+            if($_GET['action'] == 'crudcongesenattente'){
+                ?>
           <h4 class="text-primary">Toutes les demandes de congés en attente !</h4>
+            <?php
+            }else{
+                ?>
+          <h4 class="text-primary">Toutes les demandes de congés accepter ou refuser !</h4>
+            <?php
+            }
+            ?>
         </div>
           <div>
               <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
@@ -48,8 +58,19 @@
                     <td><?= $crud->commentaire ?></td>
                     <td><?= $crud->nom ." ". $crud->prenom?></td>
                     <td>
+                        <?php
+                        if($_GET['action'] == 'crudcongesenattente'){
+                            ?>
                         <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Accepter</a>
                         <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Refuser</a>
+                        <?php
+                        }else{
+                            ?>
+                        <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Accepter</a>
+                        <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Annuler</a>
+                        <?php
+                        }
+                        ?>
                     </td>
                 </tr>
                 <?php

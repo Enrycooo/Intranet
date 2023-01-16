@@ -20,7 +20,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="index.php?action=createUser&id=<?=$id?>">Créer un Utilisateurs</a>
-                            <li><a class="dropdown-item" href="#">Tous les congés</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudusers&id=<?=$id?>">Tous les utilisateurs</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
@@ -30,8 +30,8 @@
                           Gestion de congés
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="index.php?action=crudconges&id=<?=$id?>">Congés en attente</a></li>
-                            <li><a class="dropdown-item" href="#">Tous les congés</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudcongesenattente&id=<?=$id?>">Congés en attente</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudconges&id=<?=$id?>">Tout les congés</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>

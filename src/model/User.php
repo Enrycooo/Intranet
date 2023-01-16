@@ -17,6 +17,18 @@ class User
     public int $id_manager;
 }
 
+class CRUD
+{
+    public int $id_employe;
+    public string $nom;
+    public string $prenom;
+    public string $username;
+    public string $email;
+    public string $poste;
+    public string $nomM;
+    public string $prenomM;     
+}
+
 class User_Model
 {
         public DatabaseConnection $connection;
@@ -86,6 +98,33 @@ class User_Model
                 }
 
                 return $users;
+        }
+        
+        public function getCrudUsers(){
+                    $stmt= $this->connection->getConnection()->query("
+                    SELECT id_employe, E.nom, E.prenom, username, E.email, P.libelle AS poste, M.nom AS nomM, M.prenom AS prenomM
+                    FROM employe E 
+                    INNER JOIN poste P ON E.id_poste = P.id_poste
+                    INNER JOIN manager M ON E.id_manager = M.id_manager
+                    WHERE actif = 1;
+                    ");
+                
+                $cruds = [];
+                while (($row = $stmt->fetch())) {
+                    $crud = new Crud();
+                    $crud->id_employe = $row['id_employe'];
+                    $crud->nom = $row['nom'];
+                    $crud->prenom = $row['prenom'];
+                    $crud->username = $row['username'];
+                    $crud->email = $row['email'];
+                    $crud->poste = $row['poste'];
+                    $crud->nomM = $row['nomM'];
+                    $crud->prenomM = $row['prenomM'];
+                    
+                    $cruds[] = $crud;
+                }
+                
+                return $cruds;
         }
 		
 }

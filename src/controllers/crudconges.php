@@ -10,13 +10,28 @@ use Application\Model\Conges\Conges_model;
 
 class CrudConges
 {
-    public function execute(int $id_employe)
+    public function CrudEnAttente(int $id_employe)
     {
         $id = $id_employe;
         
         $crudModel = new Conges_model();
         $crudModel->connection = new DatabaseConnection();
         $cruds = $crudModel->getCrudEnAttente();
+        
+        if($_SESSION['id'] !== ""){
+            require('templates/Conges/index.php');
+        }else{
+            header("Location: index.php");
+        }
+    }
+    
+    public function Crud(int $id_employe)
+    {
+        $id = $id_employe;
+        
+        $crudModel = new Conges_model();
+        $crudModel->connection = new DatabaseConnection();
+        $cruds = $crudModel->getCrudConges();
         
         if($_SESSION['id'] !== ""){
             require('templates/Conges/index.php');

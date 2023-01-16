@@ -19,6 +19,7 @@ require_once('src/controllers/navbar.php');
 require_once('src/controllers/createuser.php');
 require_once('src/controllers/createconges.php');
 require_once('src/controllers/crudconges.php');
+require_once('src/controllers/crudusers.php');
 
 use Application\Controllers\Login\Login;
 use Application\Controllers\Homepage\Homepage;
@@ -27,6 +28,7 @@ use Application\Controllers\Navbar\Navbar;
 use Application\Controllers\CreateUser\CreateUser;
 use Application\Controllers\CreateConges\CreateConges;
 use Application\Controllers\CrudConges\CrudConges;
+use Application\Controllers\CrudUsers\CrudUsers;
 
 
 try {
@@ -68,12 +70,30 @@ try {
             } else {
                 throw new Exception('Erreur de connexion');
             }
+        }elseif($_GET['action'] === 'crudcongesenattente' && $_SESSION['id_poste'] == 1){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                
+                (new Navbar())->execute();
+                (new CrudConges())->CrudEnAttente($id_employe);
+            } else {
+                throw new Exception('Erreur de connexion');
+            }
         }elseif($_GET['action'] === 'crudconges' && $_SESSION['id_poste'] == 1){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
                 (new Navbar())->execute();
-                (new CrudConges())->execute($id_employe);
+                (new CrudConges())->Crud($id_employe);
+            } else {
+                throw new Exception('Erreur de connexion');
+            }
+        }elseif($_GET['action'] === 'crudusers' && $_SESSION['id_poste'] == 1){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                
+                (new Navbar())->execute();
+                (new CrudUsers())->execute($id_employe);
             } else {
                 throw new Exception('Erreur de connexion');
             }
