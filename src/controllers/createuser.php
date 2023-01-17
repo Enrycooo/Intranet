@@ -6,11 +6,13 @@ require_once('src/lib/database.php');
 require_once('src/model/Manager.php');
 require_once('src/model/Poste.php');
 require_once('src/model/User.php');
+require_once('src/model/Service.php');
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Manager\Manager_Model;
 use Application\Model\Poste\Poste_Model;
 use Application\Model\User\User_Model;
+use Application\Model\Service\Service_model;
 
 class CreateUser
 {
@@ -56,6 +58,10 @@ class CreateUser
         $managerModel = new Manager_Model();
         $managerModel->connection = new DatabaseConnection();
         $managers = $managerModel->getManagers();
+        
+        $serviceModel = new Service_model();
+        $serviceModel->connection = new DatabaseConnection();
+        $services = $serviceModel->getServices();
         
         if($_SESSION['username'] !== ""){
         require('templates/Users/createuser.php');

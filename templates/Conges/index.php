@@ -10,7 +10,7 @@
             <?php
             }else{
                 ?>
-          <h4 class="text-primary">Toutes les demandes de congés accepter ou refuser !</h4>
+          <h4 class="text-primary">Toutes les demandes de congés accepter ou refuser ou en attente!</h4>
             <?php
             }
             ?>
@@ -44,10 +44,10 @@
               </tr>
             </thead>
             <tbody>
-                <?php
+                    <?php
                     foreach($cruds as $crud)
                     {
-                ?>
+                    ?>
                 <tr>
                     <td><?= $crud->id_conges ?></td>
                     <td><?= $crud->date_debut ?></td>
@@ -58,22 +58,11 @@
                     <td><?= $crud->commentaire ?></td>
                     <td><?= $crud->nom ." ". $crud->prenom?></td>
                     <td>
-                        <?php
-                        if($_GET['action'] == 'crudcongesenattente'){
-                            ?>
                         <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Accepter</a>
                         <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Refuser</a>
-                        <?php
-                        }else{
-                            ?>
-                        <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Accepter</a>
-                        <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Annuler</a>
-                        <?php
-                        }
-                        ?>
                     </td>
                 </tr>
-                <?php
+                    <?php
                     }
                     ?>
             </tbody>

@@ -28,6 +28,7 @@
                 <th>email</th>
                 <th>poste</th>
                 <th>Manager</th>
+                <th>Service</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -43,6 +44,7 @@
                     <td><?= $crud->email ?></td>
                     <td><?= $crud->poste ?></td>
                     <td><?= $crud->nomM." ".$crud->prenomM ?></td>
+                    <td><?= $crud->service ?></td>
                     <td>
                         <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Modifier</a>
                         <a class="btn btn-danger btn-sm" href="#"><i class="fas fa-heart pe-2"></i>Supprimer</a>

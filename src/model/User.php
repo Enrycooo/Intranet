@@ -26,7 +26,8 @@ class CRUD
     public string $email;
     public string $poste;
     public string $nomM;
-    public string $prenomM;     
+    public string $prenomM;  
+    public string $service;
 }
 
 class User_Model
@@ -102,10 +103,11 @@ class User_Model
         
         public function getCrudUsers(){
                     $stmt= $this->connection->getConnection()->query("
-                    SELECT id_employe, E.nom, E.prenom, username, E.email, P.libelle AS poste, M.nom AS nomM, M.prenom AS prenomM
+                    SELECT id_employe, E.nom, E.prenom, username, E.email, P.libelle AS poste, M.nom AS nomM, M.prenom AS prenomM, S.libelle AS service
                     FROM employe E 
                     INNER JOIN poste P ON E.id_poste = P.id_poste
                     INNER JOIN manager M ON E.id_manager = M.id_manager
+                    INNER JOIN service S ON E.id_service = S.id_service
                     WHERE actif = 1;
                     ");
                 
@@ -120,6 +122,7 @@ class User_Model
                     $crud->poste = $row['poste'];
                     $crud->nomM = $row['nomM'];
                     $crud->prenomM = $row['prenomM'];
+                    $crud->service = $row['service'];
                     
                     $cruds[] = $crud;
                 }

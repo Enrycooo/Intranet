@@ -61,8 +61,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-12">
-                        <input class="btn btn-primary" type="submit" value="Créer" />
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le service</label>
+                        <select class="select form-control-lg" name="id_service">
+                        <?php
+                        foreach($services as $service){
+                            ?>
+                        <option value="<?= htmlspecialchars($service->id_service) ?>">
+                        <?= htmlspecialchars($service->libelle) ?></option>
+                        <?php
+                        }
+                        ?>
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Créer</button>
                     </div>
                 </div>
             </form>
