@@ -17,6 +17,20 @@
                     ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="index.php?action=crudRaison&id=<?=$id?>">Toutes les raisons</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudService&id=<?=$id?>">Tous les services</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudPoste&id=<?=$id?>">Tous les postes</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudEtat&id=<?=$id?>">Tous les états</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudManager&id=<?=$id?>">Tous les manager</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Gestion des utilisateurs
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">

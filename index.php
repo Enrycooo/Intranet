@@ -23,10 +23,11 @@ require_once('src/controllers/Login.php');
 require_once('src/controllers/homepage.php');
 require_once('src/controllers/mainpage.php');
 require_once('src/controllers/navbar.php');
-require_once('src/controllers/createuser.php');
-require_once('src/controllers/createconges.php');
-require_once('src/controllers/crudconges.php');
-require_once('src/controllers/crudusers.php');
+require_once('src/controllers/users/createuser.php');
+require_once('src/controllers/conges/createconges.php');
+require_once('src/controllers/conges/crudconges.php');
+require_once('src/controllers/users/crudusers.php');
+require_once('src/controllers/admin/crudraison.php');
 
 use Application\Controllers\Login\Login;
 use Application\Controllers\Homepage\Homepage;
@@ -36,6 +37,7 @@ use Application\Controllers\CreateUser\CreateUser;
 use Application\Controllers\CreateConges\CreateConges;
 use Application\Controllers\CrudConges\CrudConges;
 use Application\Controllers\CrudUsers\CrudUsers;
+use Application\Controllers\CrudRaison\CrudRaison;
 
 
 try {
@@ -105,6 +107,34 @@ try {
                 
                 (new Navbar())->execute();
                 (new CrudUsers())->execute($id_employe);
+            } else {
+                throw new Exception('Erreur de ma');
+            }
+        }elseif($_GET['action'] === 'crudRaison' && $_SESSION['id_poste'] == 1){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                
+                $input = null;
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $input = $_POST;
+                }
+                
+                (new Navbar())->execute();
+                (new CrudRaison())->execute($id_employe, $input);
+            } else {
+                throw new Exception('Erreur de ma');
+            }
+        }elseif($_GET['action'] === 'deleteRaison' && $_SESSION['id_poste'] == 1){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                
+                $input = null;
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $input = $_POST;
+                }
+                
+                (new Navbar())->execute();
+                (new CrudRaison())->deleteRaison($id_employe, $input);
             } else {
                 throw new Exception('Erreur de ma');
             }
