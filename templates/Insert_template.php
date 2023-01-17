@@ -1,4 +1,5 @@
 <?php ob_start();?>
+<!--Voici le template de toutes les insertion de l'intranet-->
 <link rel="stylesheet" href="assets/css/style.css">
 
 <div class="container-fluid px-4 py-2">
@@ -30,49 +31,6 @@
                     <div class="col-sm-6 flex-column d-flex">
                         <label class="form-control-label px-3" for="password">Mot de passe</label>
                         <input type="password" id="password" name='password' required/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 flex-column d-flex">
-                        <label class="form-label select-label">Choisissez le poste</label>
-                        <select class="select form-control-lg" name="id_poste">
-                        <?php
-                        foreach($postes as $poste){ 
-                            ?>
-                        <option value="<?= htmlspecialchars($poste->id_poste) ?>">
-                        <?= htmlspecialchars($poste->libelle) ?></option>
-                        <?php
-                        } 
-                        ?>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 flex-column d-flex">
-                        <label class="form-label select-label">Choisissez le manager</label>
-                        <select class="select form-control-lg" name="id_manager">
-                        <?php
-                        foreach($managers as $manager){
-                            ?>
-                        <option value="<?= htmlspecialchars($manager->id_manager) ?>">
-                        <?= htmlspecialchars($manager->prenom)." ".htmlspecialchars($manager->nom)?></option>
-                        <?php
-                        } 
-                        ?>
-                         </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 flex-column d-flex">
-                        <label class="form-label select-label">Choisissez le service</label>
-                        <select class="select form-control-lg" name="id_service">
-                        <?php
-                        foreach($services as $service){
-                            ?>
-                        <option value="<?= htmlspecialchars($service->id_service) ?>">
-                        <?= htmlspecialchars($service->libelle) ?></option>
-                        <?php
-                        }
-                        ?>
-                         </select>
                     </div>
                 </div>
                 <div class="row">

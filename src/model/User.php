@@ -15,6 +15,7 @@ class User
     public string $password;
     public int $id_poste;
     public int $id_manager;
+    public int $id_service;
 }
 
 class CRUD
@@ -34,11 +35,11 @@ class User_Model
 {
         public DatabaseConnection $connection;
         
-	public function createUser(string $nom, string $prenom, string $username, string $email, string $password, int $id_poste, int $id_manager)
+	public function createUser(string $nom, string $prenom, string $username, string $email, string $password, int $id_poste, int $id_manager, int $id_service)
 	{
                 $stmt = $this->connection->getConnection()->prepare(
-                'INSERT INTO employe(nom, prenom, username, email, password, actif, id_poste, id_manager)
-                VALUES(:nom, :prenom, :username, :email, :password, 1, :id_poste, :id_manager)'
+                'INSERT INTO employe(nom, prenom, username, email, password, actif, id_poste, id_manager, id_service)
+                VALUES(:nom, :prenom, :username, :email, :password, 1, :id_poste, :id_manager, :id_service)'
                 );
                 $stmt->bindValue(':nom', $nom);
                 $stmt->bindValue(':prenom', $prenom);
@@ -47,6 +48,7 @@ class User_Model
                 $stmt->bindValue(':password', $password);
                 $stmt->bindValue(':id_poste', $id_poste);
                 $stmt->bindValue(':id_manager', $id_manager);
+                $stmt->bindValue(':id_service', $id_service);
                 $affectedLines = $stmt->execute();
 
                 return ($affectedLines > 0);
@@ -75,6 +77,7 @@ class User_Model
                 $user->id_poste = $row['id_poste'];
                 $user->id_manager = $row['id_manager'];
                 $user->id_employe = $row['id_employe'];
+                $user->id_service = $row['id_service'];
 
                 return $user;
         }

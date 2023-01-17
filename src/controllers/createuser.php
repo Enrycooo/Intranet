@@ -28,7 +28,7 @@ class CreateUser
             $password = null;
             $id_poste = null;
             $id_manager = null;
-            if (!empty($input['nom']) && !empty($input['prenom']) && !empty($input['username']) && !empty($input['email']) && !empty($input['password']) && !empty($input['id_poste']) && !empty($input['id_manager'])) {
+            if (!empty($input['nom']) && !empty($input['prenom']) && !empty($input['username']) && !empty($input['email']) && !empty($input['password']) && !empty($input['id_poste']) && !empty($input['id_manager']) && !empty($input['id_service'])) {
                 $nom = $input['nom'];
                 $prenom = $input['prenom'];
                 $username = $input['username'];
@@ -36,13 +36,14 @@ class CreateUser
                 $password = hash('sha512', $input['password']);
                 $id_poste = $input['id_poste'];
                 $id_manager = $input['id_manager'];
+                $id_service = $input['id_service'];
             } else {
                 throw new \Exception('Les données du formulaire sont invalides.');
             }
 
             $user_model = new User_Model();
             $user_model->connection = new DatabaseConnection();
-            $success = $user_model->createUser($nom, $prenom, $username, $email, $password, $id_poste, $id_manager);
+            $success = $user_model->createUser($nom, $prenom, $username, $email, $password, $id_poste, $id_manager, $id_service);
             if (!$success) {
                 throw new \Exception('Impossible d\'ajouter l\'utilisateur !');
             } else {
