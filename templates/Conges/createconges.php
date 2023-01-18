@@ -82,17 +82,39 @@ function difference(){
         var date1 = new Date(document.getElementById('date_debut').value);
         var date2 = new Date(document.getElementById('date_fin').value);
         var millisecondsPerDay = 24 * 60 * 60 * 1000;
+        const diffDays = ((treatAsUTC(date2) - treatAsUTC(date1)) / millisecondsPerDay);
+        
+        // Get the difference in whole weeks
+        var wholeWeeks = diffDays / 7 | 0;
+
+        // Estimate business days as number of whole weeks * 5
+        var days = wholeWeeks * 5;
+
+        // If not even number of weeks, calc remaining weekend days
+        if (diffDays % 7) {
+          date1.setDate(date1.getDate() + wholeWeeks * 7);
+
+          while (date1 < date2) {
+            date1.setDate(date1.getDate() + 1);
+
+            // If day isn't a Sunday or Saturday, add to business days
+            if (date1.getDay() !== 0 && date1.getDay() !== 6) {
+              ++days;
+            }
+          }
+        }
+        
         if(time === 1 && time2 === 0){
-            date2 = (date2 - (millisecondsPerDay));
+            days = (days - 1);
         }
         if(time === 1 && time2 === 1){
-            date2 = (date2 - (500 * 60 * 60 * 24));
+            days = (days - 0.5);
         }
         if(time === 0 && time2 === 0){
-            date2 = (date2 - (500 * 60 * 60 * 24));
+            days = (days - 0.5);
         }
-        const diffDays = ((treatAsUTC(date2) - treatAsUTC(date1)) / millisecondsPerDay) + 1; 
-        document.getElementById('duration').value = diffDays;
+        
+        document.getElementById('duration').value = days+1;
 }
 </script>
 <?php $content = ob_get_clean(); ?>
