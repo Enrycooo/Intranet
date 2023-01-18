@@ -34,7 +34,6 @@
                           Gestion des utilisateurs
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="index.php?action=createUser&id=<?=$id?>">Créer un Utilisateurs</a>
                             <li><a class="dropdown-item" href="index.php?action=crudusers&id=<?=$id?>">Tous les utilisateurs</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>

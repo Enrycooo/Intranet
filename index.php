@@ -23,7 +23,6 @@ require_once('src/controllers/Login.php');
 require_once('src/controllers/homepage.php');
 require_once('src/controllers/mainpage.php');
 require_once('src/controllers/navbar.php');
-require_once('src/controllers/users/createuser.php');
 require_once('src/controllers/conges/createconges.php');
 require_once('src/controllers/conges/crudconges.php');
 require_once('src/controllers/users/cruduser.php');
@@ -37,7 +36,6 @@ use Application\Controllers\Login\Login;
 use Application\Controllers\Homepage\Homepage;
 use Application\Controllers\Mainpage\Mainpage;
 use Application\Controllers\Navbar\Navbar;
-use Application\Controllers\CreateUser\CreateUser;
 use Application\Controllers\CreateConges\CreateConges;
 use Application\Controllers\CrudConges\CrudConges;
 use Application\Controllers\CrudUser\CrudUser;
@@ -62,19 +60,6 @@ try {
                 
             (new Navbar())->execute();
                 (new Mainpage())->execute();
-            } else {
-                throw new Exception('Erreur de connexion au site');
-            }
-        }elseif($_GET['action'] === 'createUser' && $_SESSION['id_poste'] == 1){
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $id_employe = $_GET['id'];
-                
-                $input = null;
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $input = $_POST;
-                }
-            (new Navbar())->execute();
-            (new CreateUser())->execute($input, $id_employe);
             } else {
                 throw new Exception('Erreur de connexion au site');
             }

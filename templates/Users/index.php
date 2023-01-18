@@ -10,18 +10,83 @@
       </div>
 
       <!--Body-->
-      <form name="form4" action='index.php?action=cruduers&id=<?=$id?>' method='post'>
+      <form name="form4" action='index.php?action=crudusers&id=<?=$id?>' method='post'>
       <div class="modal-body">
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="nom">Nom de l'utilisateur</label>
-          <input type="text" id="nom" class="form-control validate" name='nom'>
-          <label data-error="wrong" data-success="right" for="prenom">Prenom de l'utilisateur</label>
-          <input type="text" id="prenom" class="form-control validate" name='prenom'>
-          <label data-error="wrong" data-success="right" for="email">Email de l'utilisateur</label>
-          <input type="mail" id="email" class="form-control validate" name='email'>
-          <input type="hidden" name="action" value="create">
-
+          <div class="row">
+                <div class="col-sm-6 flex-column d-flex"> 
+                    <label class="form-control-label px-3" for="Nom">Nom</label>
+                    <input type="text" id="Nom" name='nom' required/>
+                </div>
+                <div class="col-sm-6 flex-column d-flex">
+                    <label class="form-control-label px-3" for="Prenom">Prenom</label>  
+                    <input type="text" id="Prenom" name='prenom' required/>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex"> 
+                        <label class="form-control-label px-3" for="email">Email</label>
+                        <input type="email" id="email" name='email' required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class=form-control-label px-3" for="username">Nom d'utilisateur</label>
+                        <input type="text" id="username" name='username' required/>
+                  </div>
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3" for="password">Mot de passe</label>
+                        <input type="password" id="password" name='password' required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le poste</label>
+                        <select class="select form-control-lg" name="poste" required/>
+                        <option></option>
+                        <?php
+                        foreach($postes as $poste){ 
+                            ?>
+                        <option value="<?= htmlspecialchars($poste->id_poste) ?>">
+                        <?= htmlspecialchars($poste->libelle) ?></option>
+                        <?php
+                        } 
+                        ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le manager</label>
+                        <select class="select form-control-lg" name="manager" required/>
+                        <option></option>
+                        <?php
+                        foreach($managers as $manager){
+                            ?>
+                        <option value="<?= htmlspecialchars($manager->id_manager) ?>">
+                        <?= htmlspecialchars($manager->prenom)." ".htmlspecialchars($manager->nom)?></option>
+                        <?php
+                        } 
+                        ?>
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le service</label>
+                        <select class="select form-control-lg" name="service" required/>
+                        <option></option>
+                        <?php
+                        foreach($services as $service){
+                            ?>
+                        <option value="<?= htmlspecialchars($service->id_service) ?>">
+                        <?= htmlspecialchars($service->libelle) ?></option>
+                        <?php
+                        }
+                        ?>
+                         </select>
+                    </div>
+                </div>
+            <input type="hidden" name="action" value="create">
         </div>
       </div>
 
@@ -53,13 +118,75 @@
       <div class="modal-body">
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="nomedit">Nom du manager</label>
-          <input type="text" id="nomedit" class="form-control validate" name='nom'>
-          <label data-error="wrong" data-success="right" for="prenomedit">Prenom du manager</label>
-          <input type="text" id="prenomedit" class="form-control validate" name='prenom'>
-          <label data-error="wrong" data-success="right" for="emailedit">Email du manager</label>
-          <input type="mail" id="emailedit" class="form-control validate" name='email'>
-          <input type="hidden" id="dataId" name="id_employe">
+          <div class="row">
+                <div class="col-sm-6 flex-column d-flex"> 
+                    <label class="form-control-label px-3" for="Nom">Nom</label>
+                    <input type="text" id="nomedit" name='nom' required/>
+                </div>
+                <div class="col-sm-6 flex-column d-flex">
+                    <label class="form-control-label px-3" for="Prenom">Prenom</label>  
+                    <input type="text" id="prenomedit" name='prenom' required/>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex"> 
+                        <label class="form-control-label px-3" for="email">Email</label>
+                        <input type="email" id="emailedit" name='email' required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class=form-control-label px-3" for="username">Nom d'utilisateur</label>
+                        <input type="text" id="usernameedit" name='username' required/>
+                  </div>
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-control-label px-3" for="password">Mot de passe</label>
+                        <input type="password" id="passwordedit" name='password' required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le poste</label>
+                        <select class="select form-control-lg" id="posteedit" name="poste" required/>
+                        <?php
+                        foreach($postes as $poste){ 
+                            ?>
+                        <option value="<?= htmlspecialchars($poste->id_poste) ?>">
+                        <?= htmlspecialchars($poste->libelle) ?></option>
+                        <?php
+                        } 
+                        ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le manager</label>
+                        <select class="select form-control-lg" id="manageredit" name="manager" required/>
+                        <?php
+                        foreach($managers as $manager){
+                            ?>
+                        <option value="<?= htmlspecialchars($manager->id_manager) ?>">
+                        <?= htmlspecialchars($manager->prenom)." ".htmlspecialchars($manager->nom)?></option>
+                        <?php
+                        } 
+                        ?>
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class="form-label select-label">Choisissez le service</label>
+                        <select class="select form-control-lg" id="serviceedit" name="service" required/>
+                        <?php
+                        foreach($services as $service){
+                            ?>
+                        <option value="<?= htmlspecialchars($service->id_service) ?>">
+                        <?= htmlspecialchars($service->libelle) ?></option>
+                        <?php
+                        }
+                        ?>
+                         </select>
+                    </div>
+                </div>
           <input type="hidden" name="action" value="update">
         </div>
       </div>
@@ -67,7 +194,7 @@
       <!--Footer-->
       <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button id="saveChanges" type="submit" class="btn btn-primary">Modifier le manager</button>
+          <button id="saveChanges" type="submit" class="btn btn-primary">Modifier l'utilisateur</button>
       </div>
       </form>
     </div>

@@ -4,9 +4,15 @@ namespace Application\Controllers\CrudUser;
 
 require_once('src/lib/database.php');
 require_once('src/model/User.php');
+require_once('src/model/Service.php');
+require_once('src/model/Poste.php');
+require_once('src/model/Manager.php');
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\User\User_Model;
+use Application\Model\Service\Service_Model;
+use Application\Model\Poste\Poste_Model;
+use Application\Model\Manager\Manager_Model;
 
 class CrudUser
 {
@@ -31,7 +37,7 @@ class CrudUser
                     $prenom = $input['prenom'];
                     $username = $input['username'];
                     $email = $input['email'];
-                    $password = $input['password'];
+                    $password = hash('sha512', $input['password']);
                     $poste = $input['poste'];
                     $manager = $input['manager'];
                     $service = $input['service'];
@@ -90,31 +96,17 @@ class CrudUser
         $user_model->connection = new DatabaseConnection();
         $cruds = $user_model->getCrudUsers();
         
-        if($_SESSION['id'] !== ""){
-            require('templates/Users/index.php');
-        }else{
-            header("Location: index.php");
-        }
-    }
-}
-/*
-namespace Application\Controllers\CrudUsers;
-
-require_once('src/lib/database.php');
-require_once('src/model/user.php');
-
-use Application\Lib\Database\DatabaseConnection;
-use Application\Model\User\User_Model;
-
-class CrudUsers
-{
-    public function execute(int $id_employe)
-    {
-        $id = $id_employe;
+        $service_model = new Service_Model();
+        $service_model->connection = new DatabaseConnection();
+        $services = $service_model->getServices();
         
-        $crudModel = new User_Model();
-        $crudModel->connection = new DatabaseConnection();
-        $cruds = $crudModel->getCrudUsers();
+        $poste_model = new Poste_Model();
+        $poste_model->connection = new DatabaseConnection();
+        $postes = $poste_model->getPostes();
+        
+        $manager_model = new Manager_Model();
+        $manager_model->connection = new DatabaseConnection();
+        $managers = $manager_model->getManagers();
         
         if($_SESSION['id'] !== ""){
             require('templates/Users/index.php');
@@ -123,4 +115,3 @@ class CrudUsers
         }
     }
 }
-*/

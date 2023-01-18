@@ -31,7 +31,7 @@ class CRUD
     public string $service;
 }
 
-class Manager_Model
+class User_Model
 {
         public DatabaseConnection $connection;
         
@@ -101,7 +101,7 @@ class Manager_Model
         
         public function getCrudUsers(){
             $stmt= $this->connection->getConnection()->query("
-            SELECT id_employe, E.nom, E.prenom, username, E.email, password, P.libelle AS poste, M.nom AS nomM, M.prenom AS prenomM, E.id_manager, S.libelle AS service
+            SELECT id_employe, E.nom, E.prenom, username, E.email, P.libelle AS poste, M.nom AS nomM, M.prenom AS prenomM, E.id_manager, S.libelle AS service
             FROM employe E 
             INNER JOIN poste P ON E.id_poste = P.id_poste
             INNER JOIN manager M ON E.id_manager = M.id_manager
@@ -117,7 +117,6 @@ class Manager_Model
                 $crud->prenom = $row['prenom'];
                 $crud->username = $row['username'];
                 $crud->email = $row['email'];
-                $crud->password = $row['password'];
                 $crud->poste = $row['poste'];
                 $crud->nomM = $row['nomM'];
                 $crud->prenomM = $row['prenomM'];
@@ -126,127 +125,29 @@ class Manager_Model
 
                 $cruds[] = $crud;
             }
+
+            return $cruds;
         }
         
-        public function deleteManager(int $id_manager){
-            $stmt = $this->connection->getConnection()->prepare("DELETE FROM manager WHERE id_manager = :id_manager");
-            $stmt->bindValue(':id_manager', $id_manager);
+        public function deleteUser(int $id_employe){
+            $stmt = $this->connection->getConnection()->prepare("DELETE FROM employe WHERE id_employe = :id_employe");
+            $stmt->bindValue(':id_employe', $id_employe);
             $stmt->execute();
         }
         
-        public function updateManager(int $id_manager, string $nom, string $prenom, string $email){
-            $stmt = $this->connection->getConnection()->prepare("UPDATE manager SET nom = :nom, prenom = :prenom, email = :email
-                                                                WHERE id_manager = :id_manager");
-            $stmt->bindValue(':id_manager', $id_manager);
+        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $password, int $poste, int $manager, int $service){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, username = :username, email = :email,
+                                                                password = :password, id_poste = :poste, id_manager = :manager, id_service = :service
+                                                                WHERE id_employe = :id_employe");
+            $stmt->bindValue(':id_employe', $id_employe);
             $stmt->bindValue(':nom', $nom);
             $stmt->bindValue(':prenom', $prenom);
+            $stmt->bindValue(':username', $username);
             $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':password', $password);
+            $stmt->bindValue(':poste', $poste);
+            $stmt->bindValue(':manager', $manager);
+            $stmt->bindValue(':service', $service);
             $stmt->execute();
         }
-}
-
-class User_Model
-{
-        public DatabaseConnection $connection;
-        
-	public function createUser(string $nom, string $prenom, string $username, string $email, string $password, int $id_poste, int $id_manager, int $id_service)
-	{
-                $stmt = $this->connection->getConnection()->prepare(
-                'INSERT INTO employe(nom, prenom, username, email, password, actif, id_poste, id_manager, id_service)
-                VALUES(:nom, :prenom, :username, :email, :password, 1, :id_poste, :id_manager, :id_service)'
-                );
-                $stmt->bindValue(':nom', $nom);
-                $stmt->bindValue(':prenom', $prenom);
-                $stmt->bindValue(':username', $username);
-                $stmt->bindValue(':email', $email);
-                $stmt->bindValue(':password', $password);
-                $stmt->bindValue(':id_poste', $id_poste);
-                $stmt->bindValue(':id_manager', $id_manager);
-                $stmt->bindValue(':id_service', $id_service);
-                $affectedLines = $stmt->execute();
-
-                return ($affectedLines > 0);
-	}
-        
-        public function getUser(string $username, string $password){
-            
-                $res= $this->connection->getConnection()->prepare("SELECT * FROM employe WHERE username = :username AND password = :password");
-                $res->bindValue(':username',$username);
-                $res->bindValue(':password',$password);
-                $res->execute();
-                
-                
-                $row = $res->fetch();
-                
-                if ($row === false) {
-                    return null;
-                }
-                
-                $user = new User();
-                $user->nom = $row['nom'];
-                $user->prenom = $row['prenom'];
-                $user->username = $row['username'];
-                $user->email = $row['email'];
-                $user->password = $row['password'];
-                $user->id_poste = $row['id_poste'];
-                $user->id_manager = $row['id_manager'];
-                $user->id_employe = $row['id_employe'];
-                $user->id_service = $row['id_service'];
-
-                return $user;
-        }
-        
-        public function getUsers(){
-            
-                $stmt= $this->connection->getConnection()->query("SELECT * FROM employe");
-                
-                $users = [];
-                while (($row = $stmt->fetch())) {
-                    $user = new User();
-                    $user->nom = $row['nom'];
-                    $user->prenom = $row['prenom'];
-                    $user->username = $row['username'];
-                    $user->email = $row['email'];
-                    $user->password = $row['password'];
-                    $user->id_poste = $row['id_poste'];
-                    $user->id_manager = $row['id_manager'];
-                    $user->id_employe = $row['id_employe'];
-
-                    $users[] = $user;
-                }
-
-                return $users;
-        }
-        
-        public function getCrudUsers(){
-                    $stmt= $this->connection->getConnection()->query("
-                    SELECT id_employe, E.nom, E.prenom, username, E.email, password, P.libelle AS poste, M.nom AS nomM, M.prenom AS prenomM, E.id_manager, S.libelle AS service
-                    FROM employe E 
-                    INNER JOIN poste P ON E.id_poste = P.id_poste
-                    INNER JOIN manager M ON E.id_manager = M.id_manager
-                    INNER JOIN service S ON E.id_service = S.id_service
-                    WHERE actif = 1;
-                    ");
-                
-                $cruds = [];
-                while (($row = $stmt->fetch())) {
-                    $crud = new Crud();
-                    $crud->id_employe = $row['id_employe'];
-                    $crud->nom = $row['nom'];
-                    $crud->prenom = $row['prenom'];
-                    $crud->username = $row['username'];
-                    $crud->email = $row['email'];
-                    $crud->password = $row['password'];
-                    $crud->poste = $row['poste'];
-                    $crud->nomM = $row['nomM'];
-                    $crud->prenomM = $row['prenomM'];
-                    $crud->idM = $row['id_manager'];
-                    $crud->service = $row['service'];
-                    
-                    $cruds[] = $crud;
-                }
-                
-                return $cruds;
-        }
-		
 }
