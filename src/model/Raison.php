@@ -61,4 +61,12 @@ class Raison_model
             $stmt->bindValue(':id_raison', $id_raison);
             $stmt->execute();
         }
+        
+        public function updateRaison(int $id_raison, string $libelle){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE raison SET libelle = :libelle
+                                                                WHERE id_raison = :id_raison");
+            $stmt->bindValue(':id_raison', $id_raison);
+            $stmt->bindValue(':libelle', $libelle);
+            $stmt->execute();
+        }
 }

@@ -1,5 +1,8 @@
 <?php ob_start();?>
 <!-- New raison modal -->
+<?php
+
+?>
 <div class="modal fade" id="newRaison" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-notify modal-warning" role="document">
@@ -12,11 +15,15 @@
 
       <!--Body-->
       <form name="form4" action='index.php?action=crudRaison&id=<?=$id?>' method='post'>
+            <?php
+            $action = 'create';
+            ?>
       <div class="modal-body">
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
           <label data-error="wrong" data-success="right" for="form3">Libellé de la raison</label>
           <input type="text" id="form3" class="form-control validate" name='libelle'>
+          <input type="hidden" name="action" value="create">
 
         </div>
       </div>
@@ -32,6 +39,7 @@
   </div>
 </div>
 <!-- End new raison modal -->
+
 <!-- Edit raison modal -->
 <div class="modal fade" id="editRaison" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -49,15 +57,16 @@
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
           <label data-error="wrong" data-success="right" for="libelleedit">Libellé de la raison</label>
-          <input type="text" id="libelleedit" class="form-control validate" name='libelle' value=''>
-
+          <input type="text" id="libelleedit" class="form-control validate" name='libelle'>
+          <input type="hidden" id="dataId" name="id_raison">
+          <input type="hidden" name="action" value="update">
         </div>
       </div>
 
       <!--Footer-->
       <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button type="submit" class="btn btn-primary">Modifier la raison</button>
+          <button id="saveChanges" type="submit" class="btn btn-primary">Modifier la raison</button>
       </div>
       </form>
     </div>
@@ -80,9 +89,9 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <div class="table-responsive">
-          <table class="table table-striped table-bordered text-center">
+          <table class="table table-striped table-bordered text-center" id="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -96,15 +105,16 @@
                     $id_raison = $crud->id_raison;
                 ?>
                 <tr>
-                    <td><?= $id_raison ?></td>
-                    <td><?= $crud->libelle ?></td>
+                    <td data-id="<?= $id_raison ?>"><?= $id_raison ?></td>
+                    <td data-id="<?= $id_raison ?>"><?= $crud->libelle ?></td>
                     <td>
                         <div class='d-flex text-center'>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editRaison" id='modif' value='<?=$crud->libelle?>'>Modifier</button>
+                        <button data-id="<?= $id_raison ?>" type="button" class="btn btn-sm btn-primary edit" data-bs-toggle="modal" data-bs-target="#editRaison">Modifier</button>
                         &nbsp;
-                        <form action='index.php?action=deleteRaison&id=<?=$id?>' method='post'>
+                        <form action='index.php?action=crudRaison&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_raison' value='<?=$id_raison?>'>
-                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                            <button data-id="<?= $id_raison ?>" type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                            <input type="hidden" name="action" value="delete">
                         </form>
                         </div>
                     </td>
@@ -118,6 +128,22 @@
       </div>
     </div>
   </div>
+<script>
+    // Récupération des données de la cellule lorsque le bouton "Modifier" est cliqué
+    var editButtons = document.querySelectorAll(".edit");
+
+    editButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        var dataId = button.getAttribute("data-id");
+        var row = document.querySelector(`td[data-id="${dataId}"]`).parentNode;
+        var cellData = row.querySelector("td:nth-child(2)").textContent;
+
+        // Mise des données récupérées dans l'input du modal
+        document.querySelector("#libelleedit").value = cellData;
+        document.querySelector("#dataId").value = dataId;
+      });
+    });
+</script>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('templates/layout.php') ?>
