@@ -10,6 +10,7 @@ class Manager
     public int $id_manager;
     public string $nom;
     public string $prenom;
+    public string $email;
 }
 
 class Manager_Model
@@ -32,7 +33,7 @@ class Manager_Model
         
         public function getManagers(): array {
             
-                $stmt= $this->connection->getConnection()->query("SELECT id_manager, nom, prenom FROM manager");
+                $stmt= $this->connection->getConnection()->query("SELECT id_manager, nom, prenom, email FROM manager");
                 
                 $managers = [];
                 while (($row = $stmt->fetch())) {
@@ -40,6 +41,7 @@ class Manager_Model
                     $manager->id_manager = $row['id_manager'];
                     $manager->nom = $row['nom'];
                     $manager->prenom = $row['prenom'];
+                    $manager->email = $row['email'];
 
                     $managers[] = $manager;
                 }
@@ -61,5 +63,20 @@ class Manager_Model
             
             return $manager;
         }
-		
+        
+        public function deleteManager(int $id_manager){
+            $stmt = $this->connection->getConnection()->prepare("DELETE FROM manager WHERE id_manager = :id_manager");
+            $stmt->bindValue(':id_manager', $id_manager);
+            $stmt->execute();
+        }
+        
+        public function updateManager(int $id_manager, string $nom, string $prenom, string $email){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE manager SET nom = :nom, prenom = :prenom, email = :email
+                                                                WHERE id_manager = :id_manager");
+            $stmt->bindValue(':id_manager', $id_manager);
+            $stmt->bindValue(':nom', $nom);
+            $stmt->bindValue(':prenom', $prenom);
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
+        }
 }
