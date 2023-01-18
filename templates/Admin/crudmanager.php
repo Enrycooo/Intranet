@@ -1,8 +1,5 @@
 <?php ob_start();?>
 <!-- Create modal -->
-<?php
-
-?>
 <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-notify modal-warning" role="document">
