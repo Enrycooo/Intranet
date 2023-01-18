@@ -55,5 +55,18 @@ class Service_model
             
             return $service;
         }
-		
+        
+        public function deleteService(int $id_service){
+            $stmt = $this->connection->getConnection()->prepare("DELETE FROM service WHERE id_service = :id_service");
+            $stmt->bindValue(':id_service', $id_service);
+            $stmt->execute();
+        }
+        
+        public function updateService(int $id_service, string $libelle){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE service SET libelle = :libelle
+                                                                WHERE id_service = :id_service");
+            $stmt->bindValue(':id_service', $id_service);
+            $stmt->bindValue(':libelle', $libelle);
+            $stmt->execute();
+        }
 }

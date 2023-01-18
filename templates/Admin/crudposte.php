@@ -1,5 +1,5 @@
 <?php ob_start();?>
-<!-- New create modal -->
+<!-- Create modal -->
 <?php
 
 ?>
@@ -14,14 +14,11 @@
       </div>
 
       <!--Body-->
-      <form name="form4" action='index.php?action=crudRaison&id=<?=$id?>' method='post'>
-            <?php
-            $action = 'create';
-            ?>
+      <form name="form4" action='index.php?action=crudPoste&id=<?=$id?>' method='post'>
       <div class="modal-body">
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="form3">Libellé de la raison</label>
+          <label data-error="wrong" data-success="right" for="form3">Libellé du poste</label>
           <input type="text" id="form3" class="form-control validate" name='libelle'>
           <input type="hidden" name="action" value="create">
 
@@ -31,7 +28,7 @@
       <!--Footer-->
       <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button type="submit" class="btn btn-primary">Créer une raison</button>
+          <button type="submit" class="btn btn-primary">Créer un poste</button>
       </div>
       </form>
     </div>
@@ -40,7 +37,7 @@
 </div>
 <!-- End create modal -->
 
-<!-- New update modal -->
+<!-- Edit modal -->
 <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-notify modal-warning" role="document">
@@ -52,13 +49,13 @@
       </div>
 
       <!--Body-->
-      <form name="form4" action='index.php?action=crudRaison&id=<?=$id?>' method='post'>
+      <form name="form4" action='index.php?action=crudPoste&id=<?=$id?>' method='post'>
       <div class="modal-body">
         <div class="md-form mb-5">
           <i class="fas fa-user prefix grey-text"></i>
-          <label data-error="wrong" data-success="right" for="libelleedit">Libellé de la raison</label>
+          <label data-error="wrong" data-success="right" for="libelleedit">Libellé du poste</label>
           <input type="text" id="libelleedit" class="form-control validate" name='libelle'>
-          <input type="hidden" id="dataId" name="id_raison">
+          <input type="hidden" id="dataId" name="id_poste">
           <input type="hidden" name="action" value="update">
         </div>
       </div>
@@ -66,7 +63,7 @@
       <!--Footer-->
       <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-          <button id="saveChanges" type="submit" class="btn btn-primary">Modifier la raison</button>
+          <button id="saveChanges" type="submit" class="btn btn-primary">Modifier le poste</button>
       </div>
       </form>
     </div>
@@ -78,11 +75,11 @@
     <div class="row mt-4">
       <div class="col-lg-6 d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="text-primary">Toutes les raisons !</h4>
+          <h4 class="text-primary">Tout les postes !</h4>
         </div>
         <div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
-            Ajouter une nouvelle raison
+            Ajouter un nouveau poste
             </button>
         </div>
       </div>
@@ -95,25 +92,25 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Raison</th>
+                <th>Postes</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
                 <?php
                 foreach($cruds as $crud){
-                    $id_raison = $crud->id_raison;
+                    $id_poste = $crud->id_poste;
                 ?>
                 <tr>
-                    <td data-id="<?= $id_raison ?>"><?= $id_raison ?></td>
-                    <td data-id="<?= $id_raison ?>"><?= $crud->libelle ?></td>
+                    <td data-id="<?= $id_poste ?>"><?= $id_poste ?></td>
+                    <td data-id="<?= $id_poste ?>"><?= $crud->libelle ?></td>
                     <td>
                         <div class='d-flex text-center'>
-                        <button data-id="<?= $id_raison ?>" type="button" class="btn btn-sm btn-primary edit" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
+                        <button data-id="<?= $id_poste ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
                         &nbsp;
-                        <form action='index.php?action=crudRaison&id=<?=$id?>' method='post'>
-                            <input type="hidden" name='id_raison' value='<?=$id_raison?>'>
-                            <button data-id="<?= $id_raison ?>" type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                        <form action='index.php?action=crudPoste&id=<?=$id?>' method='post'>
+                            <input type="hidden" name='id_poste' value='<?=$id_poste?>'>
+                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                             <input type="hidden" name="action" value="delete">
                         </form>
                         </div>
@@ -130,7 +127,7 @@
   </div>
 <script>
     // Récupération des données de la cellule lorsque le bouton "Modifier" est cliqué
-    var editButtons = document.querySelectorAll(".edit");
+    var editButtons = document.querySelectorAll(".update");
 
     editButtons.forEach(function(button) {
       button.addEventListener("click", function() {
