@@ -89,10 +89,15 @@ try {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
+                $input = null;
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $input = $_POST;
+                }
+                
                 (new Navbar())->execute();
-                (new CrudConges())->Crud($id_employe);
+                (new CrudConges())->CRUD($id_employe, $input);
             } else {
-                throw new Exception('Erreur de ta');
+                throw new Exception('Erreur de ma');
             }
         }elseif($_GET['action'] === 'crudusers' && $_SESSION['id_poste'] == 1){
             if (isset($_GET['id']) && $_GET['id'] > 0) {

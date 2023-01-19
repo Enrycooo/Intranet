@@ -68,7 +68,7 @@
     </div>
 </div>
 <script>
-    window.onclick = difference;
+window.onclick = difference;
 
 function treatAsUTC(date) {
     var result = new Date(date);
@@ -98,7 +98,7 @@ function difference(){
             date1.setDate(date1.getDate() + 1);
 
             // If day isn't a Sunday or Saturday, add to business days
-            if (date1.getDay() !== 0 && date1.getDay() !== 6) {
+            if (date1.getDay() !== 5 && date1.getDay() !== 6) {
               ++days;
             }
           }
@@ -113,8 +113,8 @@ function difference(){
         if(time === 0 && time2 === 0){
             days = (days - 0.5);
         }
-        
-        document.getElementById('duration').value = days+1;
+        alert(days+" "+time+" "+time2+" "+date1+" "+date2);
+        document.getElementById('duration').value = days + 1;
 }
 </script>
 <?php $content = ob_get_clean(); ?>

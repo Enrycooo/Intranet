@@ -67,7 +67,7 @@ class CrudUser
                     $prenom = $input['prenom'];
                     $username = $input['username'];
                     $email = $input['email'];
-                    $password = $input['password'];
+                    $password = hash('sha512', $input['password']);
                     $poste = $input['poste'];
                     $manager = $input['manager'];
                     $service = $input['service'];
