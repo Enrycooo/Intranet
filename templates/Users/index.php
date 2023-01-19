@@ -187,6 +187,7 @@
                          </select>
                     </div>
                 </div>
+          <input type="hidden" id="dataId" name="id_employe">
           <input type="hidden" name="action" value="update">
         </div>
       </div>
@@ -247,6 +248,9 @@
                     <td data-id="<?= $id_employe ?>"><?= $crud->poste ?></td>
                     <td data-id="<?= $id_employe ?>"><?= $crud->nomM." ".$crud->prenomM ?></td>
                     <td data-id="<?= $id_employe ?>"><?= $crud->service ?></td>
+                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_poste ?></td>
+                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_manager ?></td>
+                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_service ?></td>
                     <td>
                         <div class='d-flex text-center'>
                         <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
@@ -280,19 +284,38 @@
         var cellData2 = row.querySelector("td:nth-child(3)").textContent;
         var cellData3 = row.querySelector("td:nth-child(4)").textContent;
         var cellData4 = row.querySelector("td:nth-child(5)").textContent;
-        var cellData5 = row.querySelector("td:nth-child(6)").textContent;
-        var cellData6 = row.querySelector("td:nth-child(7)").textContent;
-        var cellData7 = row.querySelector("td:nth-child(8)").textContent;
+        var cellData5 = row.querySelector("td:nth-child(9)").textContent;
+        var cellData6 = row.querySelector("td:nth-child(10)").textContent;
+        var cellData7 = row.querySelector("td:nth-child(11)").textContent;
 
         // Mise des données récupérées dans l'input du modal
         document.querySelector("#nomedit").value = cellData1;
         document.querySelector("#prenomedit").value = cellData2;
         document.querySelector("#usernameedit").value = cellData3;
         document.querySelector("#emailedit").value = cellData4;
-        document.querySelector("#posteedit").value = cellData5;
-        document.querySelector("#manageredit").value = cellData6;
-        document.querySelector("#serviceedit").value = cellData7;
         document.querySelector("#dataId").value = dataId;
+        
+        //Envoie des options de POSTE, MANAGER et SERVICE
+        var optionValue2 = cellData5;
+        var selectInput2 = document.querySelector("#posteedit");
+        selectInput2.value = optionValue2;
+        var option2 = document.createElement("option");
+        option2.textContent = optionValue2;
+        option2.value = optionValue2;
+        
+        var optionValue4 = cellData6;
+        var selectInput4 = document.querySelector("#manageredit");
+        selectInput4.value = optionValue4;
+        var option4 = document.createElement("option");
+        option4.textContent = optionValue4;
+        option4.value = optionValue4;
+        
+        var optionValue5 = cellData7;
+        var selectInput5 = document.querySelector("#serviceedit");
+        selectInput5.value = optionValue5;
+        var option5 = document.createElement("option");
+        option5.textContent = optionValue5;
+        option5.value = optionValue5;
       });
     });
 </script>
