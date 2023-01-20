@@ -101,7 +101,7 @@
     <div class="row mt-4">
       <div class="col-lg-6 d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="text-primary">Tout les états !</h4>
+          <h4 class="text-primary">Tout les congés !</h4>
         </div>
         <div>
             <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
@@ -115,7 +115,7 @@
           <table class="table table-striped table-bordered text-center" id="table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>N°</th>
                 <th>Début</th>
                 <th>Fin</th>
                 <th>Début type</th>
@@ -165,7 +165,11 @@
                     <?php
                     }
                     ?>
-                    <td data-id="<?= $id_conges ?>"><?= $crud->etat ?></td>
+                    <?php
+                        if($crud->etat == 'En attente'){echo "<td data-id=".$id_conges."><span class='badge bg-warning'>" . $crud->etat . "</span></td>";}
+                        elseif($crud->etat == 'Acceptée'){echo "<td data-id=".$id_conges."><span class='badge bg-success'>" . $crud->etat . "</span></td>";}
+                        elseif($crud->etat !== ''){echo "<td data-id=".$id_conges."><span class='badge bg-danger' style='background-color: #ff0000;'>" . $crud->etat . "</span></td>";}
+                    ?>
                     <?php
                     if($_SESSION['id_poste'] == 1){
                     ?>

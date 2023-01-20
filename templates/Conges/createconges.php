@@ -113,7 +113,7 @@ function difference(){
         if(time === 0 && time2 === 0){
             days = (days - 0.5);
         }
-        alert(days+" "+time+" "+time2+" "+date1+" "+date2);
+        
         document.getElementById('duration').value = days + 1;
 }
 </script>

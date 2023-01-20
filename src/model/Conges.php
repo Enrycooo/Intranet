@@ -117,7 +117,8 @@ class Conges_Model
         
         public function getCrudEnAttente(){
                 $stmt= $this->connection->getConnection()->query("
-                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, E.libelle AS etat, EM.nom, EM.prenom
+                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, 
+                    E.libelle AS etat, EM.nom, EM.prenom, C.debut_type, C.fin_type, C.id_raison, C.id_etat
                     FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
                     INNER JOIN etat E ON C.id_etat = E.id_etat
                     INNER JOIN employe EM ON C.id_employe = EM.id_employe
@@ -138,6 +139,10 @@ class Conges_Model
                     $crud->etat = $row['etat'];
                     $crud->nom = $row['nom'];
                     $crud->prenom = $row['prenom'];
+                    $crud->debut_type = $row['debut_type'];
+                    $crud->fin_type = $row['fin_type'];
+                    $crud->id_raison = $row['id_raison'];
+                    $crud->id_etat = $row['id_etat'];
                     
                     $cruds[] = $crud;
                 }
@@ -177,6 +182,33 @@ class Conges_Model
                 }
                 
                 return $cruds;
+        }
+        
+        public function getCalendar(int $id_employe){
+                $stmt= $this->connection->getConnection()->prepare("
+                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, 
+                    E.libelle AS etat, EM.nom, EM.prenom, C.debut_type, C.fin_type, C.id_raison, C.id_etat
+                    FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
+                    INNER JOIN etat E ON C.id_etat = E.id_etat
+                    INNER JOIN employe EM ON C.id_employe = EM.id_employe
+                    WHERE C.id_employe = :id_employe
+                    ");
+                $stmt->bindValue(':id_employe', $id_employe);
+                $stmt->execute();
+                
+                
+                $calendars = [];
+                while (($row = $stmt->fetch())) {
+                $calendar = new Crud();
+                $date_debut = date("d-m-Y", strtotime($row['date_debut']));
+                $date_fin = date("d-m-Y", strtotime($row['date_fin']));
+                $calendar->date_debut = $date_debut;
+                $calendar->date_fin = $date_fin;
+                $calendar->raison = $row['raison'];
+                
+                $calendars[] = $calendar;
+                }
+            return $calendars;
         }
         
         public function deleteConges(int $id_conges){
