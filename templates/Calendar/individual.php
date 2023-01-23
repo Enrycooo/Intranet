@@ -5,8 +5,9 @@
 <script src='templates/Calendar/dist/index.global.js'></script>
 <script src="templates/Calendar/packages/core/locales/fr.global.js"></script>
 <script>
-
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
+    var url ='./templates/Calendar/';
+    
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -18,7 +19,7 @@
         },
       businessHours: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: 'templates/Calendar/conges.php'
+      events: url+'conges.php'
     });
     calendar.render();
   });
