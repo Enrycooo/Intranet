@@ -74,7 +74,7 @@ class Calendar
         $etats = $etat_model->getEtats();
         
         if($_SESSION['id'] !== ""){
-            require('templates/Calendar/individual.php');
+            require('templates/Calendar/index.php');
         }else{
             header("Location: index.php");
         }

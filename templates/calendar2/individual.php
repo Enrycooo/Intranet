@@ -1,6 +1,10 @@
 <meta charset='utf-8' />
 <script src='templates/Calendar/dist/index.global.js'></script>
 <script src="templates/Calendar/packages/core/locales/fr.global.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.3.js"
+  integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+  crossorigin="anonymous"></script>
 <script>
     
 document.addEventListener('DOMContentLoaded', function() {
