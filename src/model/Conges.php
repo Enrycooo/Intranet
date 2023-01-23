@@ -35,6 +35,14 @@ class Crud
     public string $fin_type;
 }
 
+class Calendar
+{
+    public int $id;
+    public string $title;
+    public string $start_date;
+    public string $end_date;
+}
+
 class Conges_Model
 {
         public DatabaseConnection $connection;
@@ -184,27 +192,19 @@ class Conges_Model
                 return $cruds;
         }
         
-        public function getCalendar(int $id_employe){
-                $stmt= $this->connection->getConnection()->prepare("
-                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, 
-                    E.libelle AS etat, EM.nom, EM.prenom, C.debut_type, C.fin_type, C.id_raison, C.id_etat
+        public function getCalendar(){
+                $stmt= $this->connection->getConnection()->query("
+                    SELECT id_conges, date_debut, date_fin, R.libelle AS raison
                     FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
-                    INNER JOIN etat E ON C.id_etat = E.id_etat
-                    INNER JOIN employe EM ON C.id_employe = EM.id_employe
-                    WHERE C.id_employe = :id_employe
                     ");
-                $stmt->bindValue(':id_employe', $id_employe);
-                $stmt->execute();
-                
                 
                 $calendars = [];
                 while (($row = $stmt->fetch())) {
-                $calendar = new Crud();
-                $date_debut = date("d-m-Y", strtotime($row['date_debut']));
-                $date_fin = date("d-m-Y", strtotime($row['date_fin']));
-                $calendar->date_debut = $date_debut;
-                $calendar->date_fin = $date_fin;
-                $calendar->raison = $row['raison'];
+                $calendar = new Calendar();
+                $calendar->id = $row['id_conges'];
+                $calendar->title = $row['raison'];
+                $calendar->start_date = $row['date_debut'];
+                $calendar->end_date = $row['date_fin'];
                 
                 $calendars[] = $calendar;
                 }

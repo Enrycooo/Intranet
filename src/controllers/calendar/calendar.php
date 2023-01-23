@@ -63,7 +63,7 @@ class Calendar
         
         $calendarmodel = new Conges_Model();
         $calendarmodel->connection = new DatabaseConnection();
-        $calendars = $calendarmodel->getCalendar($id);
+        $calendars = $calendarmodel->getCalendar();
         
         $raison_model = new Raison_Model();
         $raison_model->connection = new DatabaseConnection();
