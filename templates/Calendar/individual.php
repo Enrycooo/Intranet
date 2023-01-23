@@ -4,7 +4,6 @@
 <script>
     
 document.addEventListener('DOMContentLoaded', function() {
-    var url ='./templates/Calendar/';
     
     var calendarEl = document.getElementById('calendar');
 
@@ -15,9 +14,24 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-      businessHours: true,
-      dayMaxEvents: true, // allow "more" link when too many events
-      events: url+'conges.php'
+        events: [
+            {
+              id: 'a',
+              title: 'test',
+              start: '2023-01-01'
+            }
+          ],
+        eventSources: [
+        {
+          url: 'templates/Calendar/conges.php',
+          success: function(){
+              alert('success');
+          },
+          failure: function() {
+            alert('there was an error while fetching events!');
+          }
+        }
+        ]
     });
     calendar.render();
   });

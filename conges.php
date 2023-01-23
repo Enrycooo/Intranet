@@ -1,13 +1,13 @@
 <?php
 header('Content-Type: application/json');
 
-$events = array();
+$events = [];
 foreach($calendars as $calendar){
-    $events[] = array(
+    $events[] = [
         'id' => $calendar->id,
         'title' => $calendar->title,
-        'startStr' =>$calendar->start_date,
-        'endStr' =>$calendar->end_date
-    );
+        'start' =>$calendar->start_date,
+        'end' =>$calendar->end_date
+    ];
 }
 echo json_encode($events);
