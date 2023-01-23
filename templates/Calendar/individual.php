@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset='utf-8' />
 <script src='templates/Calendar/dist/index.global.js'></script>
 <script src="templates/Calendar/packages/core/locales/fr.global.js"></script>
 <script>
+    
 document.addEventListener('DOMContentLoaded', function() {
     var url ='./templates/Calendar/';
     
@@ -32,10 +30,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 </style>
-</head>
-<body>
 
   <div id='calendar'></div>
-
-</body>
-</html>

@@ -10,4 +10,5 @@ foreach($calendars as $calendar){
         'end' =>$calendar->end_date
     ];
 }
-echo json_encode($events);
+$data = json_encode($events);
+echo $data;
