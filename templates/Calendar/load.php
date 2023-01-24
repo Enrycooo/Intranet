@@ -12,13 +12,16 @@ catch (PDOException $e) {
     //throw $th;
 }
 
-$result = $conn->query("SELECT id_conges, date_debut, date_fin, R.libelle AS raison
+$result = $conn->prepare("SELECT id_conges, date_debut, date_fin, R.libelle AS raison
                     FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison");
+$result->execute();
+$res = $result->fetchALL(PDO::FETCH_OBJ);
+
 $data = [];
-foreach($result as $row) {
+foreach($res as $row) {
     $data[] = [
-        'id'              => $row->id_conge,
-        'title'           => $row->commentaire,
+        'id'              => $row->id_conges,
+        'title'           => $row->raison,
         'start'           => $row->date_debut,
         'end'             => $row->date_fin
     ];

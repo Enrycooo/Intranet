@@ -27,13 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
           ],
         eventSources: [
         {
-          url: 'templates/Calendar/conges.php',
-          success: function(){
-              alert('success');
-          },
-          failure: function() {
-            alert('there was an error while fetching events!');
-          }
+          url: 'templates/Calendar/load.php'
         }
         ]
     });

@@ -37,7 +37,7 @@ class Crud
 
 class Calendar
 {
-    public int $id;
+    public string $id;
     public string $title;
     public string $start_date;
     public string $end_date;
