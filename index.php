@@ -190,7 +190,7 @@ try {
             } else {
                 throw new Exception('Erreur de ma');
             }
-        }elseif($_GET['action'] === 'calendarconges' && $_SESSION['id_poste'] == 1){
+        }elseif($_GET['action'] === 'calendarconges'){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
