@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-sm-6 flex-column d-flex"> 
                             <label class="form-control-label px-3">Date de début<span class="text-danger"></span></label> 
-                            <input type="date" id="date_debut" name="date_debut"> 
+                            <input type="datetime-local" id="date_debut" name="date_debut"> 
                         </div>
                         <div class="col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">&nbsp;<span class="text-danger"></span></label>
@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-sm-6 flex-column d-flex"> 
                             <label class="form-control-label px-3">Date de fin<span class="text-danger"></span></label> 
-                            <input type="date" id="date_fin" name="date_fin"> 
+                            <input type="datetime-local" id="date_fin" name="date_fin"> 
                         </div>
                         <div class="col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">&nbsp;<span class="text-danger"></span></label>
@@ -54,12 +54,12 @@
                     <div class="row">
                         <div class="form-group col-12  flex-column d-flex"> 
                             <label class="form-control-label">Commentaire<span class="text-danger"></span></label>
-                            <input type="text" id="commentaire" name="commentaire"> 
+                            <input type="text" id="commentaire" name="commentaire" onclick="difference()"> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12"> 
-                            <button type="submit" class="btn btn-primary">Faire la demande</button> 
+                            <button type="submit" class="btn btn-primary" onclick="difference()">Faire la demande</button> 
                         </div>
                     </div>
                 </form>
@@ -69,7 +69,6 @@
 </div>
 <script>
 window.onclick = difference;
-
 function treatAsUTC(date) {
     var result = new Date(date);
     result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
@@ -98,7 +97,7 @@ function difference(){
             date1.setDate(date1.getDate() + 1);
 
             // If day isn't a Sunday or Saturday, add to business days
-            if (date1.getDay() !== 5 && date1.getDay() !== 6) {
+            if (date1.getDay() !== 6 && date1.getDay() !== 0) {
               ++days;
             }
           }

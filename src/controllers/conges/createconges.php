@@ -39,8 +39,6 @@ class CreateConges
             if (!$success) {
                 throw new \Exception('Impossible d\'ajouter le conges !');
             } else {
-                $id = $_SESSION['id'];
-                header("Location: index.php?action=connected&id=$id");
             }
         }
         

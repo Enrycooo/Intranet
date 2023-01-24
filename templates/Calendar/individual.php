@@ -102,7 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.style.display = 'none';
             }
 </script>
+<style>
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
+</style>
 <div class="modal" id="editeventmodal">
     <div class="modal-dialog modal-notify modal-warning" role="document">
         <div class="modal-content">
