@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-sm-6 flex-column d-flex"> 
                     <label class="form-control-label px-3">Date de début<span class="text-danger"></span></label> 
-                    <input type="date" id="date_debut" name="date_debut"> 
+                    <input type="datetime-local" id="date_debut" name="date_debut"> 
                 </div>
                 <div class="col-sm-6 flex-column d-flex">
                     <label class="form-control-label px-3">&nbsp;<span class="text-danger"></span></label>
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-sm-6 flex-column d-flex"> 
                     <label class="form-control-label px-3">Date de fin<span class="text-danger"></span></label> 
-                    <input type="date" id="date_fin" name="date_fin"> 
+                    <input type="datetime-local" id="date_fin" name="date_fin"> 
                 </div>
                 <div class="col-sm-6 flex-column d-flex">
                     <label class="form-control-label px-3">&nbsp;<span class="text-danger"></span></label>
@@ -233,14 +233,17 @@
         //Envoie des dates au modal
         //du à des problème de format de date, nous utilisons moment.js
         //une librairie JS pour les format de date
-        var dateMomentObject = moment(dataCell, "DD/MM/YYYY");
-        var dateMomentObject2 = moment(dataCell2, "DD/MM/YYYY");
+        var dateMomentObject = moment(dataCell, "DD.MM.YYYY HH:mm");
+        var dateMomentObject2 = moment(dataCell2, "DD.MM.YYYY HH:mm");
         var dataDate = dateMomentObject.toDate();
         var dataDate2 = dateMomentObject2.toDate();
         var dateInput = document.querySelector("#date_debut");
-        dateInput.value = dataDate.toISOString().slice(0 ,10);
+        dateInput.value = dataDate.toISOString().slice(0 ,16);
         var dateInput2 = document.querySelector("#date_fin");
-        dateInput2.value = dataDate2.toISOString().slice(0 ,10);
+        dateInput2.value = dataDate2.toISOString().slice(0 ,16);
+        
+        console.log(dataDate);
+        console.log(dataDate2);
         
         //Envoie des options de temps au modal
         var optionValue = cellData3;
