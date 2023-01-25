@@ -307,7 +307,7 @@
             date1.setDate(date1.getDate() + 1);
 
             // If day isn't a Sunday or Saturday, add to business days
-            if (date1.getDay() !== 5 && date1.getDay() !== 6) {
+            if (date1.getDay() !== 6 && date1.getDay() !== 6) {
               ++days;
             }
           }
