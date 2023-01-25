@@ -237,6 +237,8 @@
         var dateMomentObject2 = moment(dataCell2, "DD.MM.YYYY HH:mm");
         var dataDate = dateMomentObject.toDate();
         var dataDate2 = dateMomentObject2.toDate();
+        dataDate.setHours(dataDate.getHours() - 3);
+        dataDate2.setHours(dataDate2.getHours() - 3);
         var dateInput = document.querySelector("#date_debut");
         dateInput.value = dataDate.toISOString().slice(0 ,16);
         var dateInput2 = document.querySelector("#date_fin");

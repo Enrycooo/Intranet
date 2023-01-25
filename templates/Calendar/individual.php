@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 let end = event.end.toString();
                 let dataDate = new Date(start);
                 let dataDate2 = new Date(end);
+                
+                dataDate.setHours(dataDate.getHours() - 3);
+                dataDate2.setHours(dataDate2.getHours() - 3);
 
                 console.log(dataDate);
                 console.log(dataDate2);
