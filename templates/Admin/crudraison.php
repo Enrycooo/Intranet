@@ -127,6 +127,7 @@
         </div>
       </div>
     </div>
+    <button class="btn btn-primary" onclick="exportData()">Exporter en Excel</button>
   </div>
 <script>
     // Récupération des données de la cellule lorsque le bouton "Modifier" est cliqué
@@ -143,6 +144,52 @@
         document.querySelector("#dataId").value = dataId;
       });
     });
+</script>
+<script type="text/javascript">
+function exportData(){
+    /* Get the date of today for the file */
+    let today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+    today = today.toLocaleDateString('fr-FR', options);
+    
+    /* Get the HTML data using Element by Id */
+    var table = document.getElementById("table");
+ 
+    /* Declaring array variable */
+    var rows =[];
+ 
+      //iterate through rows of table
+    for(var i=0,row; row = table.rows[i];i++){
+        //rows would be accessed using the "row" variable assigned in the for loop
+        //Get each cell value/column from the row
+        column1 = row.cells[0].innerText;
+        column2 = row.cells[1].innerText;
+ 
+    /* add a new records in the array */
+        rows.push(
+            [
+                column1,
+                column2
+            ]
+        );
+ 
+        }
+        csvContent = "data:text/csv;charset=utf-8,";
+         /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+        rows.forEach(function(rowArray){
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+ 
+        /* create a hidden <a> DOM node and set its download attribute */
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Raisons-conges-"+today+".csv");
+        document.body.appendChild(link);
+         /* download the data file named "Stock_Price_Report.csv" */
+        link.click();
+}
 </script>
 <?php $content = ob_get_clean(); ?>
 

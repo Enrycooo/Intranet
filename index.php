@@ -30,7 +30,6 @@ require_once('src/controllers/admin/crudraison.php');
 require_once('src/controllers/admin/crudservice.php');
 require_once('src/controllers/admin/crudposte.php');
 require_once('src/controllers/admin/crudetat.php');
-require_once('src/controllers/admin/crudmanager.php');
 require_once('src/controllers/calendar/calendar.php');
 
 use Application\Controllers\Login\Login;
@@ -44,7 +43,6 @@ use Application\Controllers\CrudRaison\CrudRaison;
 use Application\Controllers\CrudService\CrudService;
 use Application\Controllers\CrudPoste\CrudPoste;
 use Application\Controllers\CrudEtat\CrudEtat;
-use Application\Controllers\CrudManager\CrudManager;
 use Application\Controllers\Calendar\Calendar;
 
 
@@ -173,20 +171,6 @@ try {
                 
                 (new Navbar())->execute();
                 (new CrudEtat())->CRUD($id_employe, $input);
-            } else {
-                throw new Exception('Erreur de ma');
-            }
-        }elseif($_GET['action'] === 'crudManager' && $_SESSION['id_poste'] == 1){
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $id_employe = $_GET['id'];
-                
-                $input = null;
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $input = $_POST;
-                }
-                
-                (new Navbar())->execute();
-                (new CrudManager())->CRUD($id_employe, $input);
             } else {
                 throw new Exception('Erreur de ma');
             }

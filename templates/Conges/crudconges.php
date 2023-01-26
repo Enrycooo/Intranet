@@ -112,7 +112,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="table-responsive">
-          <table class="table table-striped table-bordered text-center" id="table">
+          <table class="table table-striped table-bordered text-center" id="table" border="1">
             <thead>
               <tr>
                 <th>N°</th>
@@ -121,29 +121,11 @@
                 <th>Début type</th>
                 <th>Fin type</th>
                 <th>Durée</th>
-                <?php
-                    if($_SESSION['id_poste'] == 1){
-                    ?>
                 <th>Raison</th>
-                <?php
-                    }
-                    ?>
                 <th>État</th>
-                <?php
-                    if($_SESSION['id_poste'] == 1){
-                    ?>
                 <th>Commentaire</th>
-                <?php
-                    }
-                    ?>
                 <th>Employé</th>
-                <?php
-                if($_SESSION['id_poste'] == 1){
-                ?>
                 <th>Actions</th>
-                <?php
-                }
-                ?>
               </tr>
             </thead>
             <tbody>
@@ -158,45 +140,29 @@
                     <td data-id="<?= $id_conges ?>"><?= $crud->debut_type ?></td>
                     <td data-id="<?= $id_conges ?>"><?= $crud->fin_type ?></td>
                     <td data-id="<?= $id_conges ?>"><?= $crud->duree ?></td>
-                    <?php
-                    if($_SESSION['id_poste'] == 1){
-                    ?>
                     <td data-id="<?= $id_conges ?>"><?= $crud->raison ?></td>
-                    <?php
-                    }
-                    ?>
                     <?php
                         if($crud->etat == 'En attente'){echo "<td data-id=".$id_conges."><span class='badge bg-warning'>" . $crud->etat . "</span></td>";}
                         elseif($crud->etat == 'Acceptée'){echo "<td data-id=".$id_conges."><span class='badge bg-success'>" . $crud->etat . "</span></td>";}
                         elseif($crud->etat !== ''){echo "<td data-id=".$id_conges."><span class='badge bg-danger' style='background-color: #ff0000;'>" . $crud->etat . "</span></td>";}
                     ?>
-                    <?php
-                    if($_SESSION['id_poste'] == 1){
-                    ?>
                     <td data-id="<?= $id_conges ?>"><?= $crud->commentaire ?></td>
-                    <?php
-                    }
-                    ?>
                     <td data-id="<?= $id_conges ?>"><?= $crud->nom ." ". $crud->prenom?></td>
-                    <?php
-                    if($_SESSION['id_poste'] == 1){
-                    ?>
                     <td>
                         <div class='d-flex text-center'>
-                        <button data-id="<?= $id_conges ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
+                        <button data-id="<?= $id_conges ?>" type="button" class="btn btn-sm btn-primary update exclude-cell" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
                         &nbsp;
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
-                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                            <button type="submit" class="btn btn-sm btn-danger exclude-cell">Supprimer</button>
                             <input type="hidden" name="action" value="delete">
                         </form>
                         </div>
                     </td>
-                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_raison ?></td>
-                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_etat ?></td>
+                    <td class="exclude-cell" style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_raison ?></td>
+                    <td class="exclude-cell" style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_etat ?></td>
                 </tr>
                 <?php
-                }
                 }
                 ?>
             </tbody>
@@ -204,6 +170,7 @@
         </div>
       </div>
     </div>
+    <button class="btn btn-primary" onclick="exportData()">Exporter en Excel</button>
   </div>
 <script src='assets/js/moment.js'></script>
 <script type="text/javascript">
@@ -327,6 +294,66 @@
         }
       });
     });
+</script>
+<script type="text/javascript">
+function exportData(){
+    /* Get the date of today for the file */
+    let today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+    today = today.toLocaleDateString('fr-FR', options);
+    
+    /* Get the HTML data using Element by Id */
+    var table = document.getElementById("table");
+ 
+    /* Declaring array variable */
+    var rows =[];
+ 
+      //iterate through rows of table
+    for(var i=0,row; row = table.rows[i];i++){
+        //rows would be accessed using the "row" variable assigned in the for loop
+        //Get each cell value/column from the row
+        column1 = row.cells[0].innerText;
+        column2 = row.cells[1].innerText;
+        column3 = row.cells[2].innerText;
+        column4 = row.cells[3].innerText;
+        column5 = row.cells[4].innerText;
+        column6 = row.cells[5].innerText;
+        column7 = row.cells[6].innerText;
+        column8 = row.cells[8].innerText;
+        column9 = row.cells[9].innerText;
+ 
+    /* add a new records in the array */
+        rows.push(
+            [
+                column1,
+                column2,
+                column3,
+                column4,
+                column5,
+                column6,
+                column7,
+                column8,
+                column9
+            ]
+        );
+ 
+        }
+        csvContent = "data:text/csv;charset=utf-8,";
+         /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+        rows.forEach(function(rowArray){
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+ 
+        /* create a hidden <a> DOM node and set its download attribute */
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Conges-"+today+".csv");
+        document.body.appendChild(link);
+         /* download the data file named "Stock_Price_Report.csv" */
+        link.click();
+}
 </script>
 <?php $content = ob_get_clean(); ?>
 

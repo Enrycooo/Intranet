@@ -14,7 +14,6 @@ class User
     public string $email;
     public string $password;
     public int $id_poste;
-    public int $id_manager;
     public int $id_service;
 }
 
@@ -35,11 +34,11 @@ class User_Model
 {
         public DatabaseConnection $connection;
         
-	public function createUser(string $nom, string $prenom, string $username, string $email, string $password, int $id_poste, int $id_manager, int $id_service)
+	public function createUser(string $nom, string $prenom, string $username, string $email, string $password, int $id_poste, int $id_service)
 	{
                 $stmt = $this->connection->getConnection()->prepare(
-                'INSERT INTO employe(nom, prenom, username, email, password, actif, id_poste, id_manager, id_service)
-                VALUES(:nom, :prenom, :username, :email, :password, 1, :id_poste, :id_manager, :id_service)'
+                'INSERT INTO employe(nom, prenom, username, email, password, actif, id_poste, id_service)
+                VALUES(:nom, :prenom, :username, :email, :password, 1, :id_poste, :id_service)'
                 );
                 $stmt->bindValue(':nom', $nom);
                 $stmt->bindValue(':prenom', $prenom);
@@ -47,7 +46,6 @@ class User_Model
                 $stmt->bindValue(':email', $email);
                 $stmt->bindValue(':password', $password);
                 $stmt->bindValue(':id_poste', $id_poste);
-                $stmt->bindValue(':id_manager', $id_manager);
                 $stmt->bindValue(':id_service', $id_service);
                 $affectedLines = $stmt->execute();
 
@@ -66,7 +64,6 @@ class User_Model
                 $user->email = $row['email'];
                 $user->password = $row['password'];
                 $user->id_poste = $row['id_poste'];
-                $user->id_manager = $row['id_manager'];
                 $user->id_employe = $row['id_employe'];
 
                 $users[] = $user;
@@ -92,7 +89,6 @@ class User_Model
             $user->email = $row['email'];
             $user->password = $row['password'];
             $user->id_poste = $row['id_poste'];
-            $user->id_manager = $row['id_manager'];
             $user->id_employe = $row['id_employe'];
             $user->id_service = $row['id_service'];
 
@@ -102,11 +98,10 @@ class User_Model
         public function getCrudUsers(){
             $stmt= $this->connection->getConnection()->query("
             SELECT id_employe, E.nom, E.prenom, username, E.email, P.libelle AS poste, 
-            M.nom AS nomM, M.prenom AS prenomM, E.id_manager, S.libelle AS service,
+            S.libelle AS service,
             E.id_service, E.id_poste
             FROM employe E 
             INNER JOIN poste P ON E.id_poste = P.id_poste
-            INNER JOIN manager M ON E.id_manager = M.id_manager
             INNER JOIN service S ON E.id_service = S.id_service
             WHERE actif = 1;
             ");
@@ -120,9 +115,6 @@ class User_Model
                 $crud->username = $row['username'];
                 $crud->email = $row['email'];
                 $crud->poste = $row['poste'];
-                $crud->nomM = $row['nomM'];
-                $crud->prenomM = $row['prenomM'];
-                $crud->id_manager = $row['id_manager'];
                 $crud->id_poste = $row['id_poste'];
                 $crud->id_service = $row['id_service'];
                 $crud->service = $row['service'];
@@ -139,9 +131,9 @@ class User_Model
             $stmt->execute();
         }
         
-        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $password, int $poste, int $manager, int $service){
+        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $password, int $poste, int $service){
             $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, username = :username, email = :email,
-                                                                password = :password, id_poste = :poste, id_manager = :manager, id_service = :service
+                                                                password = :password, id_poste = :poste, id_service = :service
                                                                 WHERE id_employe = :id_employe");
             $stmt->bindValue(':id_employe', $id_employe);
             $stmt->bindValue(':nom', $nom);
@@ -150,7 +142,6 @@ class User_Model
             $stmt->bindValue(':email', $email);
             $stmt->bindValue(':password', $password);
             $stmt->bindValue(':poste', $poste);
-            $stmt->bindValue(':manager', $manager);
             $stmt->bindValue(':service', $service);
             $stmt->execute();
         }

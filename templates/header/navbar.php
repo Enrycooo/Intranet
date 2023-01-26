@@ -24,7 +24,6 @@
                             <li><a class="dropdown-item" href="index.php?action=crudService&id=<?=$id?>">Tous les services</a></li>
                             <li><a class="dropdown-item" href="index.php?action=crudPoste&id=<?=$id?>">Tous les postes</a></li>
                             <li><a class="dropdown-item" href="index.php?action=crudEtat&id=<?=$id?>">Tous les états</a></li>
-                            <li><a class="dropdown-item" href="index.php?action=crudManager&id=<?=$id?>">Tous les manager</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
@@ -48,6 +47,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Congés
+                          <span class="notification-count badge bg-warning" id="notification-count"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="index.php?action=crudcongesenattente&id=<?=$id?>">Congés en attente</a></li>
@@ -84,6 +84,26 @@
         </div>
     </nav>
 <!-- Navbar -->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  getLeaveCount(function(leaveCount) {
+    document.querySelector('.notification-count').textContent = leaveCount;
+  });
+});
+
+function getLeaveCount(callback) {
+  $.ajax({
+    type: "GET",
+    url: "templates/header/api/leaves.php",
+    success: function(data) {
+      let leaveCount = data[0]["COUNT(id_conges)"];
+      alert(leaveCount);
+      callback(leaveCount);
+    }
+  });
+}
+</script>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('templates/layout.php') ?>
