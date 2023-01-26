@@ -99,9 +99,19 @@
 <!-- End update modal -->
   <div class="container">
     <div class="row mt-4">
-      <div class="col-lg-6 d-flex justify-content-between align-items-center">
+      <div class="col-lg-10 d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="text-primary">Tout les congés !</h4>
+          <?php
+            if($_GET['action'] == 'crudcongesenattente'){
+                ?>
+          <h4 class="text-primary">Toutes les demandes de congés en attente !</h4>
+            <?php
+            }elseif($_GET['action'] == 'crudconges'){
+                ?>
+          <h4 class="text-primary">Toutes les demandes de congés!</h4>
+            <?php
+            }
+            ?>
         </div>
         <div>
             <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
@@ -319,8 +329,9 @@ function exportData(){
         column5 = row.cells[4].innerText;
         column6 = row.cells[5].innerText;
         column7 = row.cells[6].innerText;
-        column8 = row.cells[8].innerText;
-        column9 = row.cells[9].innerText;
+        column8 = row.cells[7].innerText;
+        column9 = row.cells[8].innerText;
+        column10 = row.cells[9].innerText;
  
     /* add a new records in the array */
         rows.push(
@@ -333,7 +344,8 @@ function exportData(){
                 column6,
                 column7,
                 column8,
-                column9
+                column9,
+                column10
             ]
         );
  

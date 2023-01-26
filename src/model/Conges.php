@@ -135,8 +135,8 @@ class Conges_Model
                 
                 $cruds = [];
                 while (($row = $stmt->fetch())) {
-                    $date_debut = date("d-m-Y", strtotime($row['date_debut']));
-                    $date_fin = date("d-m-Y", strtotime($row['date_fin']));
+                    $date_debut = date("d-m-Y H:i", strtotime($row['date_debut']));
+                    $date_fin = date("d-m-Y H:i", strtotime($row['date_fin']));
                     $crud = new Crud();
                     $crud->id_conges = $row['id_conges'];
                     $crud->date_debut = $date_debut;
