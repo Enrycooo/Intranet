@@ -86,6 +86,8 @@
 <!-- Navbar -->
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script>
+    //Le javascript suivant permet d'afficher le nombre de congés en attente dans la navbar, utile pour
+    //s'avoir s'il y en as et combien.
 document.addEventListener("DOMContentLoaded", function() {
   getLeaveCount(function(leaveCount) {
     document.querySelector('.notification-count').textContent = leaveCount;

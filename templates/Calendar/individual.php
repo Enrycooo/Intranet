@@ -5,19 +5,19 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script src='assets/js/moment.js'></script>
 <script type="module">
-
+//DOMContentLoaded permet de lancer la fonction au lancement de la page
 document.addEventListener('DOMContentLoaded', function() {
-    
+    //Permet de lier le JS avec la div ayant l'id calendar
     var calendarEl = document.getElementById('calendar');
     
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        eventTimeFormat: { // will produce something like "Tuesday, September 18, 2018"
+        eventTimeFormat: { // Içi on choisis le format des dates par exemple le code suivant produit 28/03/2023
             month: '2-digit',
             year: 'numeric',
             day: '2-digit'
         },
-        locale:'fr',
-        headerToolbar: {
+        locale:'fr', //on dit au calendrier que la langue est le français, pour que ça marche, il faut link le fichier fr.global.js comme au dessus
+        headerToolbar: { //on défini qu'est ce qu'il y auras au dessus du calendrier
             left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
@@ -26,19 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if($_SESSION['id_poste'] !==2){
         echo 'navLinks: true, // can click day/week names to navigate views
         businessHours: true, // display business hours
-        editable: true,';
+        editable: true,'; //permet de cliquer sur les évènements du calendar
         }
         ?>
-        eventSources: [
+        eventSources: [ //On défini la sources des évènements
         {
           url: 'templates/Calendar/api/load.php'
         }
         ],
-        eventColor: '#378006',
+        eventColor: '#378006', //La couleur des évènements
         <?php
         if($_SESSION['id_poste'] !== 2){
         echo "
-        eventClick: function(info) {
+        eventClick: function(info) { //eventClick execute la fonction qui suit si l'on clique sur un évènements
             openEditModal(info.event);
             function openEditModal(event) {
             
@@ -401,7 +401,9 @@ if($_SESSION['id_poste'] !== 2){
         result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
         return result;
     }
+    
     setTimeout(difference,1000);
+    
     function difference(){
         setTimeout(difference,1000);
         var time = document.querySelector('#time').selectedIndex;

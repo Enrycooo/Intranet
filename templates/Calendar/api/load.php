@@ -1,6 +1,7 @@
 <?php
 include('db.php');
-
+//J'ai du refaire une connexion à la BDD et des requêtes spéciales pour le calendrier
+//car j'avais des problèmes de lien entre les fichiers et de variable non défini.
 $result = $conn->prepare("SELECT id_conges, date_debut, date_fin, E.nom AS nom, E.prenom AS prenom
                         FROM conges C INNER JOIN employe E ON C.id_employe = E.id_employe");
 $result->execute();
@@ -16,4 +17,5 @@ foreach($res as $row) {
     ];
 }
 
-echo json_encode($data);
+echo json_encode($data); //json_encode permet d'encoder l'array $data en json pour que fullcalendar puisse
+//l'utiliser. Et le 'echo' est obligatoire
