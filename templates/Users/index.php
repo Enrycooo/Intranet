@@ -144,8 +144,6 @@
                         ?>
                         </select>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-6 flex-column d-flex">
                         <label class="form-label select-label">Choisissez le service</label>
                         <select class="select form-control-lg" id="serviceedit" name="service" required/>
@@ -255,8 +253,8 @@
         var cellData2 = row.querySelector("td:nth-child(3)").textContent;
         var cellData3 = row.querySelector("td:nth-child(4)").textContent;
         var cellData4 = row.querySelector("td:nth-child(5)").textContent;
-        var cellData5 = row.querySelector("td:nth-child(9)").textContent;
-        var cellData7 = row.querySelector("td:nth-child(10)").textContent;
+        var cellData5 = row.querySelector("td:nth-child(8)").textContent;
+        var cellData6 = row.querySelector("td:nth-child(9)").textContent;
 
         // Mise des données récupérées dans l'input du modal
         document.querySelector("#nomedit").value = cellData1;
@@ -273,7 +271,7 @@
         option2.textContent = optionValue2;
         option2.value = optionValue2;
         
-        var optionValue5 = cellData7;
+        var optionValue5 = cellData6;
         var selectInput5 = document.querySelector("#serviceedit");
         selectInput5.value = optionValue5;
         var option5 = document.createElement("option");

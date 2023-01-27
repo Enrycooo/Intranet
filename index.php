@@ -12,7 +12,7 @@ if($_SESSION == null){
     $_SESSION['id_service']="";
 }
 
-if($_SESSION['username'] !== "" && $_SESSION['password'] !== ""){
+if($_SESSION['username'] !== "" && $_SESSION['password'] !== "" && $_SESSION['id'] !== ""){
     //Si l'on est connecté et que l'on essaie d'aller sur la page de connexion, on est rediriger sur la
     //page principale
     header("Location: index.php?action=connected&id=$id");

@@ -45,6 +45,11 @@ public function Header()
 // Pied de page
 function Footer()
 {
+    $id_conges = $_GET['id_conges'];
+    $pdfModel = new Conges_Model();
+    $pdfModel->connection = new DatabaseConnection();
+    $model = $pdfModel->getPDF($id_conges);
+    
     $this->SetFont('Arial','B',10);
     $this->SetFillColor(211, 211, 211);
     $this->Cell(190,6,'',1,0,'C',1);
@@ -62,7 +67,7 @@ function Footer()
     $this->SetX(90);
     $this->Cell(0,0,'Date ..........................',0,1);
     $this->SetX(150);
-    $this->Cell(0,0,'Date ..........................',0,1);
+    $this->Cell(0,0,'Date '.$model->date_demande.'',0,1);
     $this->Ln(30);
     $this->SetFont('Arial','B',8);
     $this->Cell(190,6,'Les demandes de conges doivent etre deposees 48 heures au moins a l\'avance pour les absences n\'excedant pas',0,0,'C');

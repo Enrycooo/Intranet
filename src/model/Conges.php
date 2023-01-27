@@ -11,6 +11,7 @@ class Conge
     public int $id_employe;
     public int $id_raison;
     public int $id_etat;
+    public int $id;
     public string $date_debut;
     public string $date_fin;
     public string $duree;
@@ -19,38 +20,13 @@ class Conge
     public string $raison;
     public string $etat;
     public string $employe;
-}
-
-class Crud
-{
-    public int $id_conges;
-    public string $date_debut;
-    public string $date_fin;
-    public string $duree;
-    public string $commentaire;
-    public string $raison;
-    public string $etat;
-    public string $employe;
     public string $debut_type;
     public string $fin_type;
-}
-
-class Calendar
-{
-    public string $id;
     public string $title;
     public string $start_date;
     public string $end_date;
-}
-
-class PDF
-{
-    public string $date_debut;
-    public string $date_fin;
     public string $nom;
     public string $prenom;
-    public string $raison;
-    public string $duree;
 }
 
 class Conges_Model
@@ -120,20 +96,22 @@ class Conges_Model
         }
         
         public function getCrudEnAttente(){
-                $stmt= $this->connection->getConnection()->query("
+                $stmt= $this->connection->getConnection()->prepare("
                     SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, 
                     E.libelle AS etat, EM.nom, EM.prenom, C.debut_type, C.fin_type, C.id_raison, C.id_etat
                     FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
                     INNER JOIN etat E ON C.id_etat = E.id_etat
                     INNER JOIN employe EM ON C.id_employe = EM.id_employe
-                    WHERE C.id_etat = 2;
+                    WHERE C.id_etat = :id_etat;
                     ");
+                $stmt->bindValue(':id_etat', 2);
+                $stmt->execute();
                 
                 $cruds = [];
                 while (($row = $stmt->fetch())) {
                     $date_debut = date("d-m-Y H:i", strtotime($row['date_debut']));
                     $date_fin = date("d-m-Y H:i", strtotime($row['date_fin']));
-                    $crud = new Crud();
+                    $crud = new Conge();
                     $crud->id_conges = $row['id_conges'];
                     $crud->date_debut = $date_debut;
                     $crud->date_fin = $date_fin;
@@ -167,7 +145,7 @@ class Conges_Model
                 while (($row = $stmt->fetch())) {
                     $date_debut = date("d-m-Y H:i", strtotime($row['date_debut']));
                     $date_fin = date("d-m-Y H:i", strtotime($row['date_fin']));
-                    $crud = new Crud();
+                    $crud = new Conge();
                     $crud->id_conges = $row['id_conges'];
                     $crud->date_debut = $date_debut;
                     $crud->date_fin = $date_fin;
@@ -196,7 +174,7 @@ class Conges_Model
                 
                 $calendars = [];
                 while (($row = $stmt->fetch())) {
-                $calendar = new Calendar();
+                $calendar = new Conge();
                 $calendar->id = $row['id_conges'];
                 $calendar->title = $row['raison'];
                 $calendar->start_date = $row['date_debut'];
@@ -240,7 +218,7 @@ class Conges_Model
             $stmt->execute();
             
             $row = $stmt->fetch();
-            $pdf = new PDF();
+            $pdf = new Conge();
             $pdf->date_debut = $row['date_debut'];
             $pdf->date_fin = $row['date_fin'];
             $pdf->commentaire = $row['commentaire'];

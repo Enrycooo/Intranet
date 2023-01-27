@@ -133,7 +133,6 @@
                 <th>Durée</th>
                 <th>Raison</th>
                 <th>État</th>
-                <th>Commentaire</th>
                 <th>Employé</th>
                 <th>Actions</th>
               </tr>
@@ -156,7 +155,7 @@
                         elseif($crud->etat == 'Acceptée'){echo "<td data-id=".$id_conges."><span class='badge bg-success'>" . $crud->etat . "</span></td>";}
                         elseif($crud->etat !== ''){echo "<td data-id=".$id_conges."><span class='badge bg-danger' style='background-color: #ff0000;'>" . $crud->etat . "</span></td>";}
                     ?>
-                    <td data-id="<?= $id_conges ?>"><?= $crud->commentaire ?></td>
+                    <td data-id="<?= $id_conges ?>" hidden><?= $crud->commentaire ?></td>
                     <td data-id="<?= $id_conges ?>"><?= $crud->nom ." ". $crud->prenom?></td>
                     <td>
                         <div class='d-flex text-center'>

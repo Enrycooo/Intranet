@@ -8,25 +8,16 @@ use Application\Lib\Database\DatabaseConnection;
 class User
 {
     public int $id_employe;
+    public int $id_poste;
+    public int $id_service;
     public string $nom;
     public string $prenom;
     public string $username;
     public string $email;
     public string $password;
-    public int $id_poste;
-    public int $id_service;
-}
-
-class CRUD
-{
-    public int $id_employe;
-    public string $nom;
-    public string $prenom;
-    public string $username;
-    public string $email;
-    public string $poste;
     public string $nomM;
     public string $prenomM;  
+    public string $poste;  
     public string $service;
 }
 
@@ -108,7 +99,7 @@ class User_Model
 
             $cruds = [];
             while (($row = $stmt->fetch())) {
-                $crud = new Crud();
+                $crud = new User();
                 $crud->id_employe = $row['id_employe'];
                 $crud->nom = $row['nom'];
                 $crud->prenom = $row['prenom'];
