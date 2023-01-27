@@ -65,7 +65,7 @@ function Footer()
     $this->SetX(28);
     $this->Cell(0,0,'Date ..........................',0,1);
     $this->SetX(90);
-    $this->Cell(0,0,'Date ..........................',0,1);
+    $this->Cell(0,0,'Date '.$model->date_change.'',0,1);
     $this->SetX(150);
     $this->Cell(0,0,'Date '.$model->date_demande.'',0,1);
     $this->Ln(30);

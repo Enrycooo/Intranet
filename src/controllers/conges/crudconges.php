@@ -59,6 +59,20 @@ class CrudConges
                 $conges_model->connection = new DatabaseConnection();
                 $conges_model->deleteConges($id_conges);
             }
+        } else if ($action === 'etat'){
+            if($input !== null){
+                $id_conges = null;
+                $id_etat = null;
+                if (!empty($input['id_conges'])){
+                    $id_conges = $input['id_conges'];
+                    $id_etat = $input['id_etat'];
+                } else {
+                    throw new \Exception('Les données du formulaire sont invalides.');
+                }
+                $conges_model = new Conges_Model();
+                $conges_model->connection = new DatabaseConnection();
+                $conges_model->changeEtat($id_conges, $id_etat);
+            }
         }
         
         $crudModel = new Conges_model();

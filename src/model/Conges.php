@@ -193,7 +193,7 @@ class Conges_Model
         
         public function updateConges(int $id_conges, int $id_raison, int $id_etat, string $date_debut, string $date_fin, string $debut_type, string $fin_type, string $duree, string $commentaire){
             $stmt = $this->connection->getConnection()->prepare("UPDATE conges SET id_raison = :id_raison, id_etat = :id_etat, date_debut = :date_debut, date_fin = :date_fin, debut_type = :debut_type, 
-                                                                fin_type = :fin_type, duree = :duree, commentaire = :commentaire
+                                                                fin_type = :fin_type, duree = :duree, commentaire = :commentaire, date_change = CURRENT_TIMESTAMP
                                                                 WHERE id_conges = :id_conges");
             $stmt->bindValue(':id_conges', $id_conges);
             $stmt->bindValue(':id_raison', $id_raison);
@@ -210,7 +210,7 @@ class Conges_Model
         public function getPdf(int $id_conges){
             $stmt = $this->connection->getConnection()->prepare("SELECT C.id_conges, C.id_employe, C.id_raison, date_debut, date_fin,
                                                                 EM.nom AS nom, EM.prenom AS prenom, R.libelle AS raison, commentaire,
-                                                                duree, C.id_raison, date_demande
+                                                                duree, C.id_raison, date_demande, date_change
                                                                 FROM conges C INNER JOIN employe EM ON C.id_employe = EM.id_employe
                                                                 INNER JOIN raison R ON C.id_raison=R.id_raison
                                                                 WHERE id_conges = :id_conges");
@@ -228,7 +228,16 @@ class Conges_Model
             $pdf->duree = $row['duree'];
             $pdf->id_raison = $row['id_raison'];
             $pdf->date_demande = date('d-m-Y', strtotime($row['date_demande']));
+            $pdf->date_change = date('d-m-Y', strtotime($row['date_change']));
             
             return $pdf;
+        }
+        
+        public function changeEtat(int $id_conges, int $id_etat){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE conges SET id_etat = :id_etat 
+                                                                WHERE id_conges = :id_conges");
+            $stmt->bindValue(':id_conges', $id_conges);
+            $stmt->bindValue(':id_etat', $id_etat);
+            $stmt->execute();
         }
 }

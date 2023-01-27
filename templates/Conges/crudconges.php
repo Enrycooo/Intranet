@@ -167,6 +167,36 @@
                             <input type="hidden" name="action" value="delete">
                         </form>
                         &nbsp;
+                        <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
+                            <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
+                            <input type='hidden' name='id_etat' value='3'>
+                            <button type="submit" class="btn btn-success exclude-cell">Acceptée</button>
+                            <input type="hidden" name="action" value="etat">
+                        </form>
+                        &nbsp;
+                        <?php
+                        if($_GET['action'] == 'crudcongesenattente'){
+                        ?>
+                        <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
+                            <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
+                            <input type='hidden' name='id_etat' value='4'>
+                            <button type="submit" class="btn btn-warning exclude-cell">Refusée</button>
+                            <input type="hidden" name="action" value="etat">
+                        </form>
+                        &nbsp;
+                        <?php
+                        }elseif($_GET['action'] == 'crudconges'){
+                        ?>
+                        <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
+                            <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
+                            <input type='hidden' name='id_etat' value='5'>
+                            <button type="submit" class="btn btn-warning exclude-cell">Annulée</button>
+                            <input type="hidden" name="action" value="etat">
+                        </form>
+                        &nbsp;
+                        <?php
+                        }
+                        ?>
                         <form action='index.php?action=pdf&id=<?=$id?>&id_conges=<?=$id_conges?>' method='post'>
                               <button type='submit' class='btn btn-primary exclude-cell'>Pdf</button>
                         </form>
