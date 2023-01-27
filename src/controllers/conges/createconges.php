@@ -4,9 +4,11 @@ namespace Application\Controllers\CreateConges;
 
 require_once('src/lib/database.php');
 require_once('src/model/Conges.php');
+require_once('src/model/Raison.php');
 
 use Application\Lib\Database\DatabaseConnection;
-use Application\Model\Conges\Conges_model;
+use Application\Model\Conges\Conges_Model;
+use Application\Model\Raison\Raison_Model;
 
 class CreateConges
 {
@@ -33,7 +35,7 @@ class CreateConges
                 throw new \Exception('Les données du formulaire sont invalides.');
             }
 
-            $congesModel = new Conges_model();
+            $congesModel = new Conges_Model();
             $congesModel->connection = new DatabaseConnection();
             $success = $congesModel->createConge($id_employe, $id_raison, $date_debut, $date_fin, $debut_type, $fin_type, $duree, $commentaire);
             if (!$success) {
@@ -42,7 +44,7 @@ class CreateConges
             }
         }
         
-        $raisonModel = new Conges_model();
+        $raisonModel = new Raison_Model();
         $raisonModel->connection = new DatabaseConnection();
         $raisons = $raisonModel->getRaisons();
         

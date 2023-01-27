@@ -31,6 +31,7 @@ require_once('src/controllers/admin/crudservice.php');
 require_once('src/controllers/admin/crudposte.php');
 require_once('src/controllers/admin/crudetat.php');
 require_once('src/controllers/calendar/calendar.php');
+require_once('src/controllers/pdf.php');
 
 use Application\Controllers\Login\Login;
 use Application\Controllers\Homepage\Homepage;
@@ -44,6 +45,7 @@ use Application\Controllers\CrudService\CrudService;
 use Application\Controllers\CrudPoste\CrudPoste;
 use Application\Controllers\CrudEtat\CrudEtat;
 use Application\Controllers\Calendar\Calendar;
+use Application\Controllers\PDF\PDF;
 
 
 try {
@@ -185,6 +187,15 @@ try {
                 
                 (new Navbar())->execute();
                 (new Calendar())->Calendar($id_employe, $input);
+            } else {
+                throw new Exception('Erreur de ma');
+            }
+        }elseif($_GET['action'] === 'pdf'){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                $id_conges = $_GET['id_conges'];
+                
+                (new PDF())->PDF($id_employe, $id_conges);
             } else {
                 throw new Exception('Erreur de ma');
             }

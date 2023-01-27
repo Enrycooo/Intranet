@@ -120,7 +120,7 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-14">
         <div class="table-responsive">
           <table class="table table-striped table-bordered text-center" id="table" border="1">
             <thead>
@@ -160,12 +160,16 @@
                     <td data-id="<?= $id_conges ?>"><?= $crud->nom ." ". $crud->prenom?></td>
                     <td>
                         <div class='d-flex text-center'>
-                        <button data-id="<?= $id_conges ?>" type="button" class="btn btn-sm btn-primary update exclude-cell" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
+                        <button data-id="<?= $id_conges ?>" type="button" class="btn btn-primary update exclude-cell" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
                         &nbsp;
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
-                            <button type="submit" class="btn btn-sm btn-danger exclude-cell">Supprimer</button>
+                            <button type="submit" class="btn btn-danger exclude-cell">Supprimer</button>
                             <input type="hidden" name="action" value="delete">
+                        </form>
+                        &nbsp;
+                        <form action='index.php?action=pdf&id=<?=$id?>&id_conges=<?=$id_conges?>' method='post'>
+                              <button type='submit' class='btn btn-primary exclude-cell'>Pdf</button>
                         </form>
                         </div>
                     </td>

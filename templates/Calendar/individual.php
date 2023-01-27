@@ -47,11 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     'show':true,
                     'display': 'block'
                 };
+                //le code ci-dessous permet d'insérer les données présentes sur l'events dans le modal
                 let start = event.start.toString();
                 let end = event.end.toString();
                 let dataDate = new Date(start);
                 let dataDate2 = new Date(end);
                 
+                //on enlève 3h aux dates car il s'agissait des dates UTC0 alors qu'on est UTC-3
                 dataDate.setHours(dataDate.getHours() - 3);
                 dataDate2.setHours(dataDate2.getHours() - 3);
                 
@@ -63,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dateInput2.value = dataDate2.toISOString().slice(0 ,16);
                 document.cookie = 'js_var_value = ' + localStorage.value;
                 
-                //Ajax pour l'affichage du reste des données
+                //Ajax pour l'affichage du reste des données car il manquais les 3/4
                 $.ajax({
                     type: 'POST',
                     url: 'templates/Calendar/api/getevent.php',
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // parse the JSON response
                         var eventData = JSON.parse(response);
-                        
+
                         // update the modal with event data
                         var optionValue = eventData.id_raison;
                         var selectInput = document.querySelector('#id_raison');
@@ -114,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // afficher le modal
                 var modal = document.getElementById('editeventmodal');
                 modal.style.display = 'block';
+                // Pour la modification, je fais appel à du php plus besoin de AJAX ni JS
             }
         }";
         }
@@ -358,10 +361,6 @@ if($_SESSION['id_poste'] !== 2){
             </div>
             <div class="row">
                 <div class="col-sm-6 flex-column d-flex"> 
-                    <label class="form-control-label">Commentaire<span class="text-danger"></span></label>
-                    <input type="text" id="commentaire" name="commentaire" disabled> 
-                </div>
-                <div class="col-sm-6 flex-column d-flex"> 
                     <label class="form-control-label px-3">Duree<span class="text-danger"></span></label> 
                     <input type="text" id="duree" name="duree" value="" disabled> 
                 </div>
@@ -403,7 +402,6 @@ if($_SESSION['id_poste'] !== 2){
     }
     
     setTimeout(difference,1000);
-    
     function difference(){
         setTimeout(difference,1000);
         var time = document.querySelector('#time').selectedIndex;

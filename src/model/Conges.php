@@ -43,6 +43,16 @@ class Calendar
     public string $end_date;
 }
 
+class PDF
+{
+    public string $date_debut;
+    public string $date_fin;
+    public string $nom;
+    public string $prenom;
+    public string $raison;
+    public string $duree;
+}
+
 class Conges_Model
 {
         public DatabaseConnection $connection;
@@ -91,7 +101,8 @@ class Conges_Model
         }
         
         public function getConge(int $id_conges){
-            $stmt = $this->connection->getConnection()->prepare("SELECT * FROM conges WHERE id_conges = :id_conges");
+            $stmt = $this->connection->getConnection()->prepare("SELECT id_conges, id_employe, date_debut, date_fin, etat, raison, duree
+                                                                FROM conges WHERE id_conges = :id_conges");
             $stmt->bindValue(':id_conges', $id_conges);
             $stmt->execute();
             
@@ -106,21 +117,6 @@ class Conges_Model
             $conge->duree = $row['duree'];
             
             return $conge;
-        }
-        
-        public function getRaisons(){
-            $stmt= $this->connection->getConnection()->query("SELECT id_raison, libelle FROM raison");
-                
-                $raisons = [];
-                while (($row = $stmt->fetch())) {
-                    $raison = new Conge();
-                    $raison->id_raison = $row['id_raison'];
-                    $raison->libelle = $row['libelle'];
-
-                    $raisons[] = $raison;
-                }
-
-                return $raisons;
         }
         
         public function getCrudEnAttente(){
@@ -231,5 +227,30 @@ class Conges_Model
             $stmt->bindValue(':duree', $duree);
             $stmt->bindValue(':commentaire', $commentaire);
             $stmt->execute();
+        }
+        
+        public function getPdf(int $id_conges){
+            $stmt = $this->connection->getConnection()->prepare("SELECT C.id_conges, C.id_employe, C.id_raison, date_debut, date_fin,
+                                                                EM.nom AS nom, EM.prenom AS prenom, R.libelle AS raison, commentaire,
+                                                                duree, C.id_raison, date_demande
+                                                                FROM conges C INNER JOIN employe EM ON C.id_employe = EM.id_employe
+                                                                INNER JOIN raison R ON C.id_raison=R.id_raison
+                                                                WHERE id_conges = :id_conges");
+            $stmt->bindValue(':id_conges', $id_conges);
+            $stmt->execute();
+            
+            $row = $stmt->fetch();
+            $pdf = new PDF();
+            $pdf->date_debut = $row['date_debut'];
+            $pdf->date_fin = $row['date_fin'];
+            $pdf->commentaire = $row['commentaire'];
+            $pdf->nom = $row['nom'];
+            $pdf->prenom = $row['prenom'];
+            $pdf->raison = $row['raison'];
+            $pdf->duree = $row['duree'];
+            $pdf->id_raison = $row['id_raison'];
+            $pdf->date_demande = date('d-m-Y', strtotime($row['date_demande']));
+            
+            return $pdf;
         }
 }

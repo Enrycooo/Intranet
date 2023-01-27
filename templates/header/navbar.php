@@ -102,9 +102,6 @@ function getLeaveCount(callback) {
     success: (function(response) {
    var distance = response["number"];
     callback(distance);
-    console.log(distance);
-    console.log(response);
-    console.log(typeof response);
 })
   });
 }
