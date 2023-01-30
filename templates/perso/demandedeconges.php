@@ -1,5 +1,13 @@
 <?php ob_start();?>
 <div class="container">
+    <div class="row mt-4">
+      <div class="col-lg-10 d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="text-primary">Toutes mes demandes de congés!</h4>
+        </div>
+      </div>
+    </div>
+    <hr>
     <div class="row">
       <div class="col-lg-14">
         <div class="table-responsive">
@@ -61,7 +69,7 @@ function exportData(){
     var rows =[];
  
       //iterate through rows of table
-    for(var i=0,row; row = table.rows[i];i++){
+    for(var i=0,row; row === table.rows[i];i++){
         //rows would be accessed using the "row" variable assigned in the for loop
         //Get each cell value/column from the row
         column1 = row.cells[0].innerText;
