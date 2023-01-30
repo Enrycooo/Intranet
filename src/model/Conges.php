@@ -210,9 +210,10 @@ class Conges_Model
         public function getPdf(int $id_conges){
             $stmt = $this->connection->getConnection()->prepare("SELECT C.id_conges, C.id_employe, C.id_raison, date_debut, date_fin,
                                                                 EM.nom AS nom, EM.prenom AS prenom, R.libelle AS raison, commentaire,
-                                                                duree, C.id_raison, date_demande, date_change
+                                                                duree, C.id_raison, date_demande, date_change, E.libelle AS etat
                                                                 FROM conges C INNER JOIN employe EM ON C.id_employe = EM.id_employe
                                                                 INNER JOIN raison R ON C.id_raison=R.id_raison
+                                                                INNER JOIN etat E ON C.id_etat=E.id_etat
                                                                 WHERE id_conges = :id_conges");
             $stmt->bindValue(':id_conges', $id_conges);
             $stmt->execute();
@@ -227,6 +228,7 @@ class Conges_Model
             $pdf->raison = $row['raison'];
             $pdf->duree = $row['duree'];
             $pdf->id_raison = $row['id_raison'];
+            $pdf->etat = $row['etat'];
             $pdf->date_demande = date('d-m-Y', strtotime($row['date_demande']));
             $pdf->date_change = date('d-m-Y', strtotime($row['date_change']));
             

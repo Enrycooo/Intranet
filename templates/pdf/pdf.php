@@ -117,8 +117,11 @@ $pdf->Cell(190,6,' Nature du conge :',0,0);
         $pdf->Ln(7);
         $pdf->SetX(110);
         $pdf->Cell(0,0,' Du '.$date_debut.' au '.$date_fin.'',0,0);
+        $pdf->Ln(7);
+        $pdf->SetX(111);
+        $pdf->Cell(0,0,'Demande : '.$model->etat.'',0,0);
     }
-    if($raison == 4){
+    elseif($raison == 4){
         $pdf->Image('assets/img/checkbox-cocher.png', 12, 100, 3);
         $pdf->Ln(22);
         $pdf->SetX(15);
@@ -129,7 +132,10 @@ $pdf->Cell(190,6,' Nature du conge :',0,0);
         $pdf->Ln(7);
         $pdf->SetX(110);
         $pdf->Cell(0,0,' Du '.$date_debut.' au '.$date_fin.'',0,0);
-    }else{
+        $pdf->Ln(7);
+        $pdf->SetX(111);
+        $pdf->Cell(0,0,'Demande : '.$model->etat.'',0,0);
+    }elseif($raison == 5 || $raison == 6){
         $pdf->Image('assets/img/checkbox-cocher.png', 12, 100, 3);
         $pdf->Ln(22);
         $pdf->SetX(15);
@@ -142,6 +148,9 @@ $pdf->Cell(190,6,' Nature du conge :',0,0);
         $pdf->Cell(0,0,' Motif :     '.$motif.'',0,0);
         $pdf->SetX(110);
         $pdf->Cell(0,0,' Du '.$date_debut.' au '.$date_fin.'',0,0);
+        $pdf->Ln(7);
+        $pdf->SetX(111);
+        $pdf->Cell(0,0,'Demande : '.$model->etat.'',0,0);
     }
 $pdf->Ln(90);
 $date = $model->date_demande;
