@@ -114,7 +114,7 @@
             ?>
         </div>
         <div>
-            <a class="btn btn-danger" href="index.php?action=createConges&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
+            <a class="btn btn-danger" href="index.php?action=createCongesAdmin&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
         </div>
       </div>
     </div>

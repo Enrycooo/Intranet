@@ -32,6 +32,7 @@ require_once('src/controllers/admin/crudposte.php');
 require_once('src/controllers/admin/crudetat.php');
 require_once('src/controllers/calendar/calendar.php');
 require_once('src/controllers/pdf.php');
+require_once('src/controllers/conges/createcongesadmin.php');
 
 use Application\Controllers\Login\Login;
 use Application\Controllers\Homepage\Homepage;
@@ -46,6 +47,7 @@ use Application\Controllers\CrudPoste\CrudPoste;
 use Application\Controllers\CrudEtat\CrudEtat;
 use Application\Controllers\Calendar\Calendar;
 use Application\Controllers\PDF\PDF;
+use Application\Controllers\CreateCongesAdmin\CreateCongesAdmin;
 
 
 try {
@@ -75,6 +77,19 @@ try {
                 }
             (new Navbar())->execute();
             (new CreateConges())->execute($input, $id_employe);
+            } else {
+                throw new Exception('Erreur de pa');
+            }
+        }elseif($_GET['action'] === 'createCongesAdmin'){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                
+                $input = null;
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $input = $_POST;
+                }
+            (new Navbar())->execute();
+            (new CreateCongesAdmin())->execute($input, $id_employe);
             } else {
                 throw new Exception('Erreur de pa');
             }

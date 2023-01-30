@@ -53,6 +53,26 @@ class Conges_Model
                 return ($affectedLines > 0);
 	}
         
+        public function createCongeAdmin(int $id_employe, int $id_raison, string $date_debut, string $date_fin, string $debut_type, string $fin_type, string $duree, string $commentaire)
+	{
+                $stmt = $this->connection->getConnection()->prepare(
+                "INSERT INTO conges(id_employe, id_raison, id_etat, date_debut, date_fin, debut_type, fin_type, duree, commentaire)
+                VALUES(:id_employe, :id_raison, 2, :date_debut, :date_fin, :debut_type, :fin_type, :duree, :commentaire)"
+                );
+                
+                $stmt->bindValue(':id_employe', $id_employe);
+                $stmt->bindValue(':id_raison', $id_raison);
+                $stmt->bindValue(':date_debut', $date_debut);
+                $stmt->bindValue(':date_fin', $date_fin);
+                $stmt->bindValue(':debut_type', $debut_type);
+                $stmt->bindValue(':fin_type', $fin_type);
+                $stmt->bindValue(':duree', $duree);
+                $stmt->bindValue(':commentaire', $commentaire);
+                $affectedLines = $stmt->execute();
+
+                return ($affectedLines > 0);
+	}
+        
         public function getConges(): array {
             
                 $stmt= $this->connection->getConnection()->query("SELECT id_conges, id_employe, 
