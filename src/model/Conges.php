@@ -76,7 +76,7 @@ class Conges_Model
         public function getConges(): array {
             
                 $stmt= $this->connection->getConnection()->query("SELECT id_conges, id_employe, 
-                    DATE_FORMAT(date_debut, '%d/%m/%Y') AS date_debut, DATE_FORMAT(date_fin, '%d/%m/%Y') AS date_fin, etat, raison, duree
+                    DATE_FORMAT(date_debut, '%d/%m/%Y') AS date_debut, DATE_FORMAT(date_fin, '%d/%m/%Y') AS date_fin, duree
                     FROM conges");
                 
                 $conges = [];
@@ -86,8 +86,6 @@ class Conges_Model
                     $conge->id_employe = $row['id_employe'];
                     $conge->date_debut = $row['date_debut'];
                     $conge->date_fin = $row['date_fin'];
-                    $conge->etat = $row['etat'];
-                    $conge->raison = $row['raison'];
                     $conge->duree = $row['duree'];
 
                     $conges[] = $conge;

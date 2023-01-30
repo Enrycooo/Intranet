@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
           url: 'templates/Calendar/api/load.php'
         }
         ],
-        eventColor: '#378006', //La couleur des évènements
         <?php
         if($_SESSION['id_poste'] !== 2){
         echo "
@@ -390,6 +389,20 @@ if($_SESSION['id_poste'] !== 2){
 <?php
 }
 ?>
+<center>
+    <div class="form-check form-check-inline">
+            <span class='badge bg-warning'>En attente</span>
+        </div>
+        <div class="form-check form-check-inline">
+            <span class='badge bg-success'>Acceptée</span>
+        </div>
+        <div class="form-check form-check-inline">
+            <span class='badge bg-danger'>Annulée</span>
+        </div>
+        <div class="form-check form-check-inline">
+            <span class='badge bg-danger'>Rejetée</span>
+        </div>
+</center>
   <div id='calendar'></div>
   
 <script type="text/javascript">

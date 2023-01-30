@@ -2,8 +2,10 @@
 include('db.php');
 //J'ai du refaire une connexion à la BDD et des requêtes spéciales pour le calendrier
 //car j'avais des problèmes de lien entre les fichiers et de variable non défini.
-$result = $conn->prepare("SELECT id_conges, date_debut, date_fin, E.nom AS nom, E.prenom AS prenom
-                        FROM conges C INNER JOIN employe E ON C.id_employe = E.id_employe");
+$result = $conn->prepare("SELECT id_conges, date_debut, date_fin, EM.nom AS nom, EM.prenom AS prenom,
+                        E.color AS color
+                        FROM conges C INNER JOIN employe EM ON C.id_employe = EM.id_employe
+                        INNER JOIN etat E ON C.id_etat = E.id_etat");
 $result->execute();
 $res = $result->fetchALL(PDO::FETCH_OBJ);
 
@@ -13,7 +15,8 @@ foreach($res as $row) {
         'id'              => $row->id_conges,
         'title'           => $row->nom." ".$row->prenom,
         'start'           => $row->date_debut,
-        'end'             => $row->date_fin
+        'end'             => $row->date_fin,
+        'color'           => $row->color
     ];
 }
 
