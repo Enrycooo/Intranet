@@ -101,17 +101,7 @@
     <div class="row mt-4">
       <div class="col-lg-10 d-flex justify-content-between align-items-center">
         <div>
-          <?php
-            if($_GET['action'] == 'crudcongesenattente'){
-                ?>
-          <h4 class="text-primary">Toutes les demandes de congés en attente !</h4>
-            <?php
-            }elseif($_GET['action'] == 'crudconges'){
-                ?>
           <h4 class="text-primary">Toutes les demandes de congés!</h4>
-            <?php
-            }
-            ?>
         </div>
         <div>
             <a class="btn btn-danger" href="index.php?action=createCongesAdmin&id=<?=$id?>"><i class="fas fa-heart pe-2"></i>Ajouter un congés</a>
@@ -119,6 +109,24 @@
       </div>
     </div>
     <hr>
+    <center>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="inlineCheckbox1"><span class='badge bg-warning'>En attente</span></label>
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="inlineCheckbox2"><span class='badge bg-success'>Acceptée</span></label>
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="inlineCheckbox3"><span class='badge bg-danger'>Annulée</span></label>
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="inlineCheckbox4"><span class='badge bg-danger'>Rejetée</span></label>
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+        </div>
+    </center>
     <div class="row">
       <div class="col-lg-14">
         <div class="table-responsive">
@@ -152,53 +160,44 @@
                     <td data-id="<?= $id_conges ?>"><?= $crud->raison ?></td>
                     <?php
                         if($crud->etat == 'En attente'){echo "<td data-id=".$id_conges."><span class='badge bg-warning'>" . $crud->etat . "</span></td>";}
-                        elseif($crud->etat == 'Acceptée'){echo "<td data-id=".$id_conges."><span class='badge bg-success'>" . $crud->etat . "</span></td>";}
+                        elseif($crud->etat == 'Acceptee'){echo "<td data-id=".$id_conges."><span class='badge bg-success'>" . $crud->etat . "</span></td>";}
                         elseif($crud->etat !== ''){echo "<td data-id=".$id_conges."><span class='badge bg-danger' style='background-color: #ff0000;'>" . $crud->etat . "</span></td>";}
                     ?>
                     <td data-id="<?= $id_conges ?>" hidden><?= $crud->commentaire ?></td>
                     <td data-id="<?= $id_conges ?>"><?= $crud->nom ." ". $crud->prenom?></td>
                     <td>
                         <div class='d-flex text-center'>
-                        <button data-id="<?= $id_conges ?>" type="button" class="btn btn-primary update exclude-cell" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
+                        <button data-id="<?= $id_conges ?>" type="button" class="btn btn-sm btn-primary update exclude-cell" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
                         &nbsp;
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
-                            <button type="submit" class="btn btn-danger exclude-cell">Supprimer</button>
+                            <button type="submit" class="btn btn-sm btn-danger exclude-cell">Supprimer</button>
                             <input type="hidden" name="action" value="delete">
                         </form>
                         &nbsp;
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
                             <input type='hidden' name='id_etat' value='3'>
-                            <button type="submit" class="btn btn-success exclude-cell">Acceptée</button>
+                            <button type="submit" class="btn btn-sm btn-success exclude-cell">Acceptée</button>
                             <input type="hidden" name="action" value="etat">
                         </form>
                         &nbsp;
-                        <?php
-                        if($_GET['action'] == 'crudcongesenattente'){
-                        ?>
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
                             <input type='hidden' name='id_etat' value='4'>
-                            <button type="submit" class="btn btn-warning exclude-cell">Refusée</button>
+                            <button type="submit" class="btn btn-sm btn-warning exclude-cell">Refusée</button>
                             <input type="hidden" name="action" value="etat">
                         </form>
                         &nbsp;
-                        <?php
-                        }elseif($_GET['action'] == 'crudconges'){
-                        ?>
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
                             <input type='hidden' name='id_etat' value='5'>
-                            <button type="submit" class="btn btn-warning exclude-cell">Annulée</button>
+                            <button type="submit" class="btn btn-sm btn-warning exclude-cell">Annulée</button>
                             <input type="hidden" name="action" value="etat">
                         </form>
                         &nbsp;
-                        <?php
-                        }
-                        ?>
                         <form action='index.php?action=pdf&id=<?=$id?>&id_conges=<?=$id_conges?>' method='post'>
-                              <button type='submit' class='btn btn-primary exclude-cell'>Pdf</button>
+                              <button type='submit' class='btn btn-sm btn-primary exclude-cell'>Pdf</button>
                         </form>
                         </div>
                     </td>
@@ -217,6 +216,47 @@
   </div>
 <script src='assets/js/moment.js'></script>
 <script type="text/javascript">
+    //Javascript pour le filtrage (en attente, acceptée, etc)
+    var table = document.getElementById('table');
+    
+    const checkboxRaison1 = document.getElementById('inlineCheckbox1');
+    const checkboxRaison2 = document.getElementById('inlineCheckbox2');
+    const checkboxRaison3 = document.getElementById('inlineCheckbox3');
+    const checkboxRaison4 = document.getElementById('inlineCheckbox4');
+    
+    checkboxRaison1.addEventListener("change", function() {
+        for (let i = 1; i < table.rows.length; i++) {
+          const row = table.rows[i];
+          if (row.cells[7].textContent !== "En attente") {
+            row.style.display = checkboxRaison1.checked ? "none" : "table-row";
+          }
+        }
+    });
+    checkboxRaison2.addEventListener("change", function() {
+        for (let i = 1; i < table.rows.length; i++) {
+          const row = table.rows[i];
+          if (row.cells[7].textContent !== "Acceptee") {
+            row.style.display = checkboxRaison2.checked ? "none" : "table-row";
+          }
+        }
+    });
+    checkboxRaison3.addEventListener("change", function() {
+        for (let i = 1; i < table.rows.length; i++) {
+          const row = table.rows[i];
+          if (row.cells[7].textContent !== "Annulee") {
+            row.style.display = checkboxRaison3.checked ? "none" : "table-row";
+          }
+        }
+    });
+    checkboxRaison4.addEventListener("change", function() {
+        for (let i = 1; i < table.rows.length; i++) {
+          const row = table.rows[i];
+          if (row.cells[7].textContent !== "Rejetee") {
+            row.style.display = checkboxRaison4.checked ? "none" : "table-row";
+          }
+        }
+    });
+    
     function treatAsUTC(date) {
         var result = new Date(date);
         result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
@@ -239,7 +279,6 @@
         var cellData6 = row.querySelector("td:nth-child(12)").textContent;
         var cellData7 = row.querySelector("td:nth-child(13)").textContent;
         var cellData8 = row.querySelector("td:nth-child(9)").textContent;
-        
         //Envoie des dates au modal
         //du à des problème de format de date, nous utilisons moment.js
         //une librairie JS pour les format de date

@@ -115,50 +115,14 @@ class Conges_Model
             return $conge;
         }
         
-        public function getCrudEnAttente(){
-                $stmt= $this->connection->getConnection()->prepare("
-                    SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, 
-                    E.libelle AS etat, EM.nom, EM.prenom, C.debut_type, C.fin_type, C.id_raison, C.id_etat
-                    FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
-                    INNER JOIN etat E ON C.id_etat = E.id_etat
-                    INNER JOIN employe EM ON C.id_employe = EM.id_employe
-                    WHERE C.id_etat = :id_etat;
-                    ");
-                $stmt->bindValue(':id_etat', 2);
-                $stmt->execute();
-                
-                $cruds = [];
-                while (($row = $stmt->fetch())) {
-                    $date_debut = date("d-m-Y H:i", strtotime($row['date_debut']));
-                    $date_fin = date("d-m-Y H:i", strtotime($row['date_fin']));
-                    $crud = new Conge();
-                    $crud->id_conges = $row['id_conges'];
-                    $crud->date_debut = $date_debut;
-                    $crud->date_fin = $date_fin;
-                    $crud->commentaire = $row['commentaire'];
-                    $crud->duree = $row['duree'];
-                    $crud->raison = $row['raison'];
-                    $crud->etat = $row['etat'];
-                    $crud->nom = $row['nom'];
-                    $crud->prenom = $row['prenom'];
-                    $crud->debut_type = $row['debut_type'];
-                    $crud->fin_type = $row['fin_type'];
-                    $crud->id_raison = $row['id_raison'];
-                    $crud->id_etat = $row['id_etat'];
-                    
-                    $cruds[] = $crud;
-                }
-                
-                return $cruds;
-        }
-        
         public function getCrudConges(){
                 $stmt= $this->connection->getConnection()->query("
                     SELECT id_conges, date_debut, date_fin, commentaire, duree, R.libelle AS raison, 
                     E.libelle AS etat, EM.nom, EM.prenom, C.debut_type, C.fin_type, C.id_raison, C.id_etat
                     FROM conges C INNER JOIN raison R ON C.id_raison=R.id_raison
                     INNER JOIN etat E ON C.id_etat = E.id_etat
-                    INNER JOIN employe EM ON C.id_employe = EM.id_employe;
+                    INNER JOIN employe EM ON C.id_employe = EM.id_employe
+                    ORDER BY date_demande DESC;
                     ");
                 
                 $cruds = [];
@@ -256,7 +220,7 @@ class Conges_Model
         }
         
         public function changeEtat(int $id_conges, int $id_etat){
-            $stmt = $this->connection->getConnection()->prepare("UPDATE conges SET id_etat = :id_etat 
+            $stmt = $this->connection->getConnection()->prepare("UPDATE conges SET id_etat = :id_etat, date_change = CURRENT_TIMESTAMP
                                                                 WHERE id_conges = :id_conges");
             $stmt->bindValue(':id_conges', $id_conges);
             $stmt->bindValue(':id_etat', $id_etat);

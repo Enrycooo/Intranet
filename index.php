@@ -93,20 +93,6 @@ try {
             } else {
                 throw new Exception('Erreur de pa');
             }
-        }elseif($_GET['action'] === 'crudcongesenattente' && $_SESSION['id_poste'] !== 2){
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $id_employe = $_GET['id'];
-                
-                $input = null;
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $input = $_POST;
-                }
-                
-                (new Navbar())->execute();
-                (new CrudConges())->CRUDEnAttente($id_employe, $input);
-            } else {
-                throw new Exception('Erreur de ca');
-            }
         }elseif($_GET['action'] === 'crudconges' && $_SESSION['id_poste'] !== 2){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];

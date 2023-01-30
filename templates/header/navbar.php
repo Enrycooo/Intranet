@@ -46,8 +46,7 @@
                           <span class="notification-count badge bg-warning" id="notification-count"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="index.php?action=crudcongesenattente&id=<?=$id?>">Congés en attente<span class="notification-count2 badge bg-warning" id="notification-count2"></span></a></li>
-                            <li><a class="dropdown-item" href="index.php?action=crudconges&id=<?=$id?>">Tout les congés</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudconges&id=<?=$id?>">Tout les congés<span class="notification-count2 badge bg-warning" id="notification-count2"></span></a></li>
                         </ul>
                     </li>
                     <?php
