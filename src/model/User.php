@@ -63,7 +63,8 @@ class User_Model
         }
         
         public function getUser(string $username, string $password){
-            $res= $this->connection->getConnection()->prepare("SELECT * FROM employe WHERE username = :username AND password = :password");
+            $res= $this->connection->getConnection()->prepare("SELECT * FROM employe
+                                                            WHERE username = :username AND password = :password");
             $res->bindValue(':username',$username);
             $res->bindValue(':password',$password);
             $res->execute();
@@ -82,6 +83,34 @@ class User_Model
             $user->id_poste = $row['id_poste'];
             $user->id_employe = $row['id_employe'];
             $user->id_service = $row['id_service'];
+            $user->poste = $row['poste'];
+            $user->service = $row['service'];
+
+            return $user;
+        }
+        
+        public function getUserPerso(int $id_employe){
+            $res= $this->connection->getConnection()->prepare("SELECT id_employe, nom, prenom, username, email, 
+                                                            P.libelle AS poste, S.libelle AS service
+                                                            FROM employe EM INNER JOIN poste P ON EM.id_poste = P.id_poste
+                                                            INNER JOIN service S ON EM.id_service = S.id_service
+                                                            WHERE id_employe = :id_employe");
+            $res->bindValue(':id_employe', $id_employe);
+            $res->execute();
+
+            $row = $res->fetch();
+
+            if ($row === false) {
+                return null;
+            }
+            $user = new User();
+            $user->nom = $row['nom'];
+            $user->prenom = $row['prenom'];
+            $user->username = $row['username'];
+            $user->email = $row['email'];
+            $user->id_employe = $row['id_employe'];
+            $user->poste = $row['poste'];
+            $user->service = $row['service'];
 
             return $user;
         }

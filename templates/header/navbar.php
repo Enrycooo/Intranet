@@ -54,6 +54,15 @@
                             <li><a class="dropdown-item" href="index.php?action=calendarconges&id=<?=$id?>">Calendrier global de congés</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Espace perso
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="index.php?action=demandedeconges&id=<?=$id?>">Mes demandes de congés</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=infoperso&id=<?=$id?>">Mes informations perso</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div class="ms-auto p-2 bd-highlight">
                     <ul class="navbar-nav me-auto">
