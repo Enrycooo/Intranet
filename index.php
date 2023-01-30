@@ -107,7 +107,7 @@ try {
             } else {
                 throw new Exception('Erreur de ma');
             }
-        }elseif($_GET['action'] === 'crudusers' && $_SESSION['id_poste'] == 1){
+        }elseif($_GET['action'] === 'crudusers' && $_SESSION['id_poste'] !== 2){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
@@ -121,7 +121,7 @@ try {
             } else {
                 throw new Exception('Erreur de ma');
             }
-        }elseif($_GET['action'] === 'crudRaison' && $_SESSION['id_poste'] == 1){
+        }elseif($_GET['action'] === 'crudRaison' && $_SESSION['id_poste'] !== 2){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
@@ -135,7 +135,7 @@ try {
             } else {
                 throw new Exception('Erreur de ma');
             }
-        }elseif($_GET['action'] === 'crudService' && $_SESSION['id_poste'] == 1){
+        }elseif($_GET['action'] === 'crudService' && $_SESSION['id_poste'] !== 2){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
@@ -149,7 +149,7 @@ try {
             } else {
                 throw new Exception('Erreur de ma');
             }
-        }elseif($_GET['action'] === 'crudPoste' && $_SESSION['id_poste'] == 1){
+        }elseif($_GET['action'] === 'crudPoste' && $_SESSION['id_poste'] !== 2){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 
@@ -163,7 +163,7 @@ try {
             } else {
                 throw new Exception('Erreur de ma');
             }
-        }elseif($_GET['action'] === 'crudEtat' && $_SESSION['id_poste'] == 1){
+        }elseif($_GET['action'] === 'crudEtat' && $_SESSION['id_poste'] !== 2){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $id_employe = $_GET['id'];
                 

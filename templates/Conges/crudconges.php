@@ -112,19 +112,19 @@
     <center>
         <div class="form-check form-check-inline">
             <label class="form-check-label" for="inlineCheckbox1"><span class='badge bg-warning'>En attente</span></label>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="En attente">
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label" for="inlineCheckbox2"><span class='badge bg-success'>Acceptée</span></label>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="Acceptee">
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label" for="inlineCheckbox3"><span class='badge bg-danger'>Annulée</span></label>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="Annulee">
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label" for="inlineCheckbox4"><span class='badge bg-danger'>Rejetée</span></label>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="Rejetee">
         </div>
     </center>
     <div class="row">
@@ -218,44 +218,38 @@
 <script type="text/javascript">
     //Javascript pour le filtrage (en attente, acceptée, etc)
     var table = document.getElementById('table');
-    
-    const checkboxRaison1 = document.getElementById('inlineCheckbox1');
-    const checkboxRaison2 = document.getElementById('inlineCheckbox2');
-    const checkboxRaison3 = document.getElementById('inlineCheckbox3');
-    const checkboxRaison4 = document.getElementById('inlineCheckbox4');
-    
-    checkboxRaison1.addEventListener("change", function() {
-        for (let i = 1; i < table.rows.length; i++) {
-          const row = table.rows[i];
-          if (row.cells[7].textContent !== "En attente") {
-            row.style.display = checkboxRaison1.checked ? "none" : "table-row";
-          }
-        }
-    });
-    checkboxRaison2.addEventListener("change", function() {
-        for (let i = 1; i < table.rows.length; i++) {
-          const row = table.rows[i];
-          if (row.cells[7].textContent !== "Acceptee") {
-            row.style.display = checkboxRaison2.checked ? "none" : "table-row";
-          }
-        }
-    });
-    checkboxRaison3.addEventListener("change", function() {
-        for (let i = 1; i < table.rows.length; i++) {
-          const row = table.rows[i];
-          if (row.cells[7].textContent !== "Annulee") {
-            row.style.display = checkboxRaison3.checked ? "none" : "table-row";
-          }
-        }
-    });
-    checkboxRaison4.addEventListener("change", function() {
-        for (let i = 1; i < table.rows.length; i++) {
-          const row = table.rows[i];
-          if (row.cells[7].textContent !== "Rejetee") {
-            row.style.display = checkboxRaison4.checked ? "none" : "table-row";
-          }
-        }
-    });
+    const checkboxes = [
+    document.getElementById('inlineCheckbox1'),
+    document.getElementById('inlineCheckbox2'),
+    document.getElementById('inlineCheckbox3'),
+    document.getElementById('inlineCheckbox4')
+    ];
+
+    const selectedStates = [];
+
+    for (const checkbox of checkboxes) {
+        checkbox.addEventListener("change", function() {
+            if (checkbox.checked) {
+                selectedStates.push(checkbox.value);
+            } else {
+                selectedStates.splice(selectedStates.indexOf(checkbox.value), 1);
+            }
+            for (let i = 1; i < table.rows.length; i++) {
+                const row = table.rows[i];
+                if (selectedStates.indexOf(row.cells[7].textContent) === -1) {
+                    row.style.display = "none";
+                } else {
+                    row.style.display = "table-row";
+                }
+            }
+            if (selectedStates.length === 0) {
+                for (let i = 1; i < table.rows.length; i++) {
+                  table.rows[i].style.display = "table-row";
+                }
+            }
+        });
+    }
+
     
     function treatAsUTC(date) {
         var result = new Date(date);

@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto">
                     <?php
-                    if($_SESSION['id_poste'] == 1){
+                    if($_SESSION['id_poste'] !== 2){
                     ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,12 +34,6 @@
                             <li><a class="dropdown-item" href="index.php?action=crudusers&id=<?=$id?>">Tous les utilisateurs</a></li>
                         </ul>
                     </li>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                    if($_SESSION['id_poste'] == 1 OR $_SESSION['id_poste'] == 3){
-                    ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Congés

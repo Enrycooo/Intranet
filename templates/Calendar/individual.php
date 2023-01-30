@@ -174,8 +174,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         option4.textContent = optionValue4;
                         option4.value = optionValue4;
                         
-                        document.querySelector('#duree').value = eventData.duree;
-                        document.querySelector('#commentaire').value = eventData.commentaire;
                         document.querySelector('#nom').value = eventData.nom;
                         document.querySelector('#prenom').value = eventData.prenom;
                     }
