@@ -27,17 +27,20 @@ class Service_model
                 return ($affectedLines > 0);
 	}
         
-        public function getService(int $id_service){
-            $stmt = $this->connection->getConnection()->prepare("SELECT * FROM service WHERE id_service = :id_service");
-            $stmt->bindValue(':id_service', $id_service);
-            $stmt->execute();
+        public function getServices(): array {
             
-            $row = $stmt->fetch();
-            $service = new Service();
-            $service->id_service = $row['id_service'];
-            $service->libelle = $row['libelle'];
-            
-            return $service;
+                $stmt= $this->connection->getConnection()->query("SELECT id_service, libelle FROM service");
+                
+                $services = [];
+                while (($row = $stmt->fetch())) {
+                    $service = new Service();
+                    $service->id_service = $row['id_service'];
+                    $service->libelle = $row['libelle'];
+
+                    $services[] = $service;
+                }
+
+                return $services;
         }
         
         public function deleteService(int $id_service){

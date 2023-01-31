@@ -69,7 +69,7 @@ function exportData(){
     var rows =[];
  
       //iterate through rows of table
-    for(var i=0,row; row === table.rows[i];i++){
+    for(var i=0,row; row = table.rows[i];i++){
         //rows would be accessed using the "row" variable assigned in the for loop
         //Get each cell value/column from the row
         column1 = row.cells[0].innerText;
@@ -81,7 +81,6 @@ function exportData(){
         column7 = row.cells[6].innerText;
         column8 = row.cells[7].innerText;
         column9 = row.cells[8].innerText;
-        column10 = row.cells[9].innerText;
  
     /* add a new records in the array */
         rows.push(
@@ -94,8 +93,7 @@ function exportData(){
                 column6,
                 column7,
                 column8,
-                column9,
-                column10
+                column9
             ]
         );
  
@@ -111,7 +109,7 @@ function exportData(){
         var encodedUri = encodeURI(csvContent);
         var link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "Conges-"+today+".csv");
+        link.setAttribute("download", "Conges-perso-"+today+".csv");
         document.body.appendChild(link);
          /* download the data file named "Stock_Price_Report.csv" */
         link.click();
