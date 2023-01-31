@@ -1,4 +1,37 @@
 <?php ob_start(); ?>
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-warning" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Intranet Landry-Sintec AVI</h4>
+      </div>
+
+      <!--Body-->
+      <form name='form4' action='index.php?action=crudusers&id=<?=$id?>' method='post'>
+      <div class="modal-body">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+            <div class="row">
+                <h1 class='text-center'>Etes-vous sûre ?</h1>
+            </div>
+            <input type="hidden" name='id_employe' value='<?=$id_employe?>'>
+            <input type="hidden" name="action" value="delete">
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn btn-danger">Supprimer</button>
+      </div>
+      </form>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
 <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-notify modal-warning" role="document">
@@ -28,6 +61,10 @@
                     <div class="col-sm-6 flex-column d-flex"> 
                         <label class="form-control-label px-3" for="email">Email</label>
                         <input type="email" id="email" name='email' required/>
+                    </div>
+                    <div class="col-sm-6 flex-column d-flex"> 
+                        <label class="form-control-label px-3" for="email">Téléphone</label>
+                        <input type="text" id="telephone" name='telephone' required/>
                     </div>
                 </div>
                 <div class="row">
@@ -119,6 +156,10 @@
                         <label class="form-control-label px-3" for="email">Email</label>
                         <input type="email" id="emailedit" name='email' required/>
                     </div>
+                    <div class="col-sm-6 flex-column d-flex"> 
+                        <label class="form-control-label px-3" for="email">Téléphone</label>
+                        <input type="text" id="telephoneedit" name='telephone' required/>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 flex-column d-flex">
@@ -199,6 +240,7 @@
                 <th>prenom</th>
                 <th>username</th>
                 <th>email</th>
+                <th>telephone</th>
                 <th>poste</th>
                 <th>Service</th>
                 <th>Actions</th>
@@ -215,19 +257,16 @@
                     <td data-id="<?= $id_employe ?>"><?= $crud->prenom?></td>
                     <td data-id="<?= $id_employe ?>"><?= $crud->username ?></td>
                     <td data-id="<?= $id_employe ?>"><?= $crud->email ?></td>
+                    <td data-id="<?= $id_employe ?>"><?= $crud->telephone ?></td>
                     <td data-id="<?= $id_employe ?>"><?= $crud->poste ?></td>
                     <td data-id="<?= $id_employe ?>"><?= $crud->service ?></td>
-                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_poste ?></td>
-                    <td style="display:none;" data-id="<?= $id_conges ?>"><?= $crud->id_service ?></td>
+                    <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->id_poste ?></td>
+                    <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->id_service ?></td>
                     <td>
                         <div class='d-flex text-center'>
-                        <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
-                        &nbsp;
-                        <form action='index.php?action=crudusers&id=<?=$id?>' method='post'>
-                            <input type="hidden" name='id_employe' value='<?=$id_employe?>'>
-                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
-                            <input type="hidden" name="action" value="delete">
-                        </form>
+                            <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
+                            &nbsp;
+                            <button data-id='<?= $id_employe ?>' type="button" class="btn btn-sm btn-danger delete" data-bs-toggle="modal" data-bs-target="#delete">Supprimer</button>
                         </div>
                     </td>
                 </tr>
@@ -253,14 +292,16 @@
         var cellData2 = row.querySelector("td:nth-child(3)").textContent;
         var cellData3 = row.querySelector("td:nth-child(4)").textContent;
         var cellData4 = row.querySelector("td:nth-child(5)").textContent;
-        var cellData5 = row.querySelector("td:nth-child(8)").textContent;
-        var cellData6 = row.querySelector("td:nth-child(9)").textContent;
+        var cellData5 = row.querySelector("td:nth-child(9)").textContent;
+        var cellData6 = row.querySelector("td:nth-child(10)").textContent;
+        var cellData7 = row.querySelector("td:nth-child(6)").textContent;
 
         // Mise des données récupérées dans l'input du modal
         document.querySelector("#nomedit").value = cellData1;
         document.querySelector("#prenomedit").value = cellData2;
         document.querySelector("#usernameedit").value = cellData3;
         document.querySelector("#emailedit").value = cellData4;
+        document.querySelector("#telephoneedit").value = cellData7;
         document.querySelector("#dataId").value = dataId;
         
         //Envoie des options de POSTE et SERVICE

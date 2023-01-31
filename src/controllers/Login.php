@@ -18,7 +18,8 @@ class Login{
                 if (!empty($input['username']) && !empty($input['password'])) {
                     //On vérifie les valeurs saisies dans les inputs de connexion
                     $username = $input['username'];
-                    $password = hash('sha512',$input['password']);
+                    $password = crypt($input['password'],'$6$rounds=5000$gA6Fkf92AFMpn3cGK$');
+                    echo $password;
                 } else {
                     throw new \Exception('Les données du formulaire sont invalides.');
                 }
