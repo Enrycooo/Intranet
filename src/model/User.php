@@ -151,15 +151,16 @@ class User_Model
             $stmt->execute();
         }
         
-        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $password, int $poste, int $service){
+        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $telephone, string $password, int $poste, int $service){
             $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, username = :username, email = :email,
-                                                                password = :password, id_poste = :poste, id_service = :service
+                                                                telephone = :telephone, password = :password, id_poste = :poste, id_service = :service
                                                                 WHERE id_employe = :id_employe");
             $stmt->bindValue(':id_employe', $id_employe);
             $stmt->bindValue(':nom', $nom);
             $stmt->bindValue(':prenom', $prenom);
             $stmt->bindValue(':username', $username);
             $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':telephone', $telephone);
             $stmt->bindValue(':password', $password);
             $stmt->bindValue(':poste', $poste);
             $stmt->bindValue(':service', $service);

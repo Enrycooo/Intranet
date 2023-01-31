@@ -52,18 +52,22 @@ class CrudUser
             }
         } else if ($action === 'update') {
             if($input !== null){
+                $id_employe = null;
                 $nom = null;
                 $prenom = null;
                 $username = null;
                 $email = null;
+                $telephone = null;
                 $password = null;
                 $poste = null;
                 $service = null;
-                if (!empty($input['nom']) && !empty($input['prenom']) && !empty($input['username']) && !empty($input['email']) && !empty($input['password']) && !empty($input['poste']) && !empty($input['service'])){
+                if (!empty($input['nom']) && !empty($input['prenom']) && !empty($input['username']) && !empty($input['email']) && !empty($input['telephone']) && !empty($input['password']) && !empty($input['poste']) && !empty($input['service'])){
+                    $id_employe = $input['id_employe'];
                     $nom = $input['nom'];
                     $prenom = $input['prenom'];
                     $username = $input['username'];
                     $email = $input['email'];
+                    $telephone = $input['telephone'];
                     $password = crypt($input['password'],'$6$rounds=5000$gA6Fkf92AFMpn3cGK$');
                     $poste = $input['poste'];
                     $service = $input['service'];
@@ -72,7 +76,7 @@ class CrudUser
                 }
                 $user_model = new User_Model();
                 $user_model->connection = new DatabaseConnection();
-                $user_model->updateUser($id_employe, $nom, $prenom, $username, $email, $password, $poste, $service);
+                $user_model->updateUser($id_employe, $nom, $prenom, $username, $email, $telephone, $password, $poste, $service);
             }
         } else if ($action === 'delete') {
             if($input !== null){
