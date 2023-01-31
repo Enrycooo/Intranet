@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-sm-6 flex-column d-flex"> 
                             <label class="form-control-label px-3">Date de début<span class="text-danger"></span></label> 
-                            <input type="datetime-local" id="date_debut" name="date_debut"> 
+                            <input type="date" id="date_debut" name="date_debut"> 
                         </div>
                         <div class="col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">&nbsp;<span class="text-danger"></span></label>
@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-sm-6 flex-column d-flex"> 
                             <label class="form-control-label px-3">Date de fin<span class="text-danger"></span></label> 
-                            <input type="datetime-local" id="date_fin" name="date_fin"> 
+                            <input type="date" id="date_fin" name="date_fin"> 
                         </div>
                         <div class="col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">&nbsp;<span class="text-danger"></span></label>

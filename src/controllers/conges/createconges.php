@@ -25,10 +25,23 @@ class CreateConges
             if (!empty($input['date_debut']) && !empty($input['date_fin']) && !empty($input['id_raison']) && !empty($input['duree'])) {
                 $id_employe = $_SESSION['id'];
                 $id_raison = $input['id_raison'];
-                $date_debut = $input['date_debut'];
-                $date_fin = $input['date_fin'];
                 $debut_type = $input['debut_type'];
                 $fin_type = $input['fin_type'];
+                $date1 = strtotime($input['date_debut']);
+                $date2 = strtotime($input['date_fin']);
+                if($debut_type == 'Matin' && $fin_type == 'Après-midi'){
+                    $date_debut = date("Y-m-d H:i:s", strtotime('+8 hours', $date1));
+                    $date_fin = date("Y-m-d H:i:s", strtotime('+19 hours', $date2));
+                } else if($debut_type == 'Après-midi' && $fin_type == 'Après-midi'){
+                    $date_debut = date("Y-m-d H:i:s", strtotime('+14 hours', $date1));
+                    $date_fin = date("Y-m-d H:i:s", strtotime('+19 hours', $date2));
+                } else if($debut_type == 'Matin' && $fin_type == 'Matin'){
+                    $date_debut = date("Y-m-d H:i:s", strtotime('+8 hours', $date1));
+                    $date_fin = date("Y-m-d H:i:s", strtotime('+13 hours', $date2));
+                } else if($debut_type == 'Après-midi' && $fin_type == 'Matin'){
+                    $date_debut = date("Y-m-d H:i:s", strtotime('+14 hours', $date1));
+                    $date_fin = date("Y-m-d H:i:s", strtotime('+13 hours', $date2));
+                }
                 $duree = $input['duree'];
                 $commentaire = $input['commentaire'];
             } else {

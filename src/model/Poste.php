@@ -43,19 +43,6 @@ class Poste_Model
                 return $postes;
         }
         
-        public function getPoste(int $id_poste){
-            $stmt = $this->connection->getConnection()->prepare("SELECT * FROM poste WHERE id_poste = :id_poste");
-            $stmt->bindValue(':id_poste', $id_poste);
-            $stmt->execute();
-            
-            $row = $stmt->fetch();
-            $poste = new Poste();
-            $poste->id_poste = $row['id_poste'];
-            $poste->libelle = $row['libelle'];
-            
-            return $poste;
-        }
-        
         public function deletePoste(int $id_poste){
             $stmt = $this->connection->getConnection()->prepare("DELETE FROM poste WHERE id_poste = :id_poste");
             $stmt->bindValue(':id_poste', $id_poste);

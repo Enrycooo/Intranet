@@ -43,19 +43,6 @@ class Etat_model
                 return $etats;
         }
         
-        public function getEtat(int $id_etat){
-            $stmt = $this->connection->getConnection()->prepare("SELECT * FROM etat WHERE id_etat = :id_etat");
-            $stmt->bindValue(':id_etat', $id_etat);
-            $stmt->execute();
-            
-            $row = $stmt->fetch();
-            $etat = new Etat();
-            $etat->id_etat = $row['id_etat'];
-            $etat->libelle = $row['libelle'];
-            
-            return $etat;
-        }
-        
         public function deleteEtat(int $id_etat){
             $stmt = $this->connection->getConnection()->prepare("DELETE FROM etat WHERE id_etat = :id_etat");
             $stmt->bindValue(':id_etat', $id_etat);

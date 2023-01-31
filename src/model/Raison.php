@@ -43,19 +43,6 @@ class Raison_model
                 return $raisons;
         }
         
-        public function getRaison(int $id_raison){
-            $stmt = $this->connection->getConnection()->prepare("SELECT * FROM raison WHERE id_raison = :id_raison");
-            $stmt->bindValue(':id_raison', $id_raison);
-            $stmt->execute();
-            
-            $row = $stmt->fetch();
-            $raison = new Raison();
-            $raison->id_raison = $row['id_raison'];
-            $raison->libelle = $row['libelle'];
-            
-            return $raison;
-        }
-        
         public function deleteRaison(int $id_raison){
             $stmt = $this->connection->getConnection()->prepare("DELETE FROM raison WHERE id_raison = :id_raison");
             $stmt->bindValue(':id_raison', $id_raison);
