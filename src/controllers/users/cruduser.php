@@ -95,21 +95,15 @@ class CrudUser
             if($input !== null){
                 $id_employe = null;
                 $conges = null;
-                $motif = null;
                 if (!empty($input['id_employe']) && !empty($input['conges'])){
                     $id_employe = $input['id_employe'];
                     $conges = $input['conges'];
-                    $motif = $input['motif'];
                 } else {
                     throw new \Exception('Les données du formulaire sont invalides.');
                 }
                 $user_model = new User_Model();
                 $user_model->connection = new DatabaseConnection();
                 $user_model->addCongesDispo($id_employe, $conges);
-                
-                $history_model = new User_Model();
-                $history_model->connection = new DatabaseConnection();
-                $history_model->addCongesHistorique($id, $id_employe, $conges, $motif);
             }
         }
         
