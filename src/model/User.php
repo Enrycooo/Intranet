@@ -119,7 +119,7 @@ class User_Model
         public function getCrudUsers(){
             $stmt= $this->connection->getConnection()->query("
             SELECT id_employe, E.nom, E.prenom, username, E.email, P.libelle AS poste, 
-            S.libelle AS service, telephone, E.id_service, E.id_poste, conges_dispo
+            S.libelle AS service, telephone, E.id_service, E.id_poste
             FROM employe E INNER JOIN poste P ON E.id_poste = P.id_poste
             INNER JOIN service S ON E.id_service = S.id_service
             WHERE actif = 1
@@ -139,7 +139,6 @@ class User_Model
                 $crud->id_service = $row['id_service'];
                 $crud->service = $row['service'];
                 $crud->telephone = $row['telephone'];
-                $crud->conges_dispo = $row['conges_dispo'];
 
                 $cruds[] = $crud;
             }
