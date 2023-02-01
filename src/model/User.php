@@ -91,7 +91,7 @@ class User_Model
         
         public function getUserPerso(int $id_employe){
             $res= $this->connection->getConnection()->prepare("SELECT id_employe, nom, prenom, username, email, 
-                                                            P.libelle AS poste, S.libelle AS service
+                                                            P.libelle AS poste, S.libelle AS service, conges_dispo
                                                             FROM employe EM INNER JOIN poste P ON EM.id_poste = P.id_poste
                                                             INNER JOIN service S ON EM.id_service = S.id_service
                                                             WHERE id_employe = :id_employe");
@@ -111,6 +111,7 @@ class User_Model
             $user->id_employe = $row['id_employe'];
             $user->poste = $row['poste'];
             $user->service = $row['service'];
+            $user->conges_dispo = $row['conges_dispo'];
 
             return $user;
         }

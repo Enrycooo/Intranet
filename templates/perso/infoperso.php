@@ -41,6 +41,12 @@
                     <p class="text-muted"><?= $cruds->poste ?></p>
                   </div>
                 </div>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Jours de congés disponible</h6>
+                    <p class="text-muted"><?= $cruds->conges_dispo ?></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
