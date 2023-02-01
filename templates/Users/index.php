@@ -17,7 +17,7 @@
             <div class="row">
                 <h1 class='text-center'>Etes-vous sûre ?</h1>
             </div>
-            <input type="hidden" name='id_employe' value='<?=$id_employe?>'>
+            <input type="hidden" id="id_employe" name='id_employe' value='<?=$id_employe?>'>
             <input type="hidden" name="action" value="delete">
         </div>
       </div>
@@ -26,6 +26,39 @@
       <div class="modal-footer justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
           <button type="submit" class="btn btn btn-danger">Supprimer</button>
+      </div>
+      </form>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<div class="modal fade" id="ajoutconges" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-warning" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Intranet Landry-Sintec AVI</h4>
+      </div>
+
+      <!--Body-->
+      <form name="form4" action='index.php?action=crudusers&id=<?=$id?>' method='post'>
+      <div class="modal-body">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+          <label data-error="wrong" data-success="right" for="form3">Ajouter des jours de congés</label>
+          <input type="text" id="form3" class="form-control validate" name='conges'>
+          
+          <input type="hidden" id="id" name='id_employe' value='<?=$id_employe?>'>
+          <input type="hidden" name="action" value="conges">
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn-primary">Ajouter les jours</button>
       </div>
       </form>
     </div>
@@ -266,6 +299,8 @@
                         <div class='d-flex text-center'>
                             <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
                             &nbsp;
+                            <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary ajoutconges" data-bs-toggle="modal" data-bs-target="#ajoutconges">Ajouter</button>
+                            &nbsp;
                             <button data-id='<?= $id_employe ?>' type="button" class="btn btn-sm btn-danger delete" data-bs-toggle="modal" data-bs-target="#delete">Supprimer</button>
                         </div>
                     </td>
@@ -281,6 +316,33 @@
     <button class="btn btn-primary" onclick="exportData()">Exporter en Excel</button>
   </div>
 <script>
+    var editButtons = document.querySelectorAll(".delete");
+
+    editButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        var dataId = button.getAttribute("data-id");
+        var row = document.querySelector(`td[data-id="${dataId}"]`).parentNode;
+        var cellData1 = row.querySelector("td:nth-child(1)").textContent;
+
+        // Mise des données récupérées dans l'input du modal
+        document.querySelector("#id_employe").value = cellData1;
+      });
+    });
+    
+    var editButtons = document.querySelectorAll(".ajoutconges");
+
+    editButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        var dataId = button.getAttribute("data-id");
+        var row = document.querySelector(`td[data-id="${dataId}"]`).parentNode;
+        var cellData1 = row.querySelector("td:nth-child(1)").textContent;
+
+        // Mise des données récupérées dans l'input du modal
+        document.querySelector("#id").value = cellData1;
+        console.log(cellData1);
+      });
+    });
+    
     // Récupération des données de la cellule lorsque le bouton "Modifier" est cliqué
     var editButtons = document.querySelectorAll(".update");
 

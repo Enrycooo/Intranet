@@ -152,6 +152,13 @@ class User_Model
             $stmt->execute();
         }
         
+        public function addCongesDispo(int $id_employe, int $conges){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET conges_dispo = conges_dispo + :conges WHERE id_employe = :id_employe");
+            $stmt->bindValue(':id_employe', $id_employe);
+            $stmt->bindValue(':conges', $conges);
+            $stmt->execute();
+        }
+        
         public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $telephone, string $password, int $poste, int $service){
             $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, username = :username, email = :email,
                                                                 telephone = :telephone, password = :password, id_poste = :poste, id_service = :service
