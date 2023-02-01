@@ -171,12 +171,6 @@
                         &nbsp;
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
-                            <button type="submit" class="btn btn-sm btn-danger exclude-cell">Supprimer</button>
-                            <input type="hidden" name="action" value="delete">
-                        </form>
-                        &nbsp;
-                        <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
-                            <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
                             <input type='hidden' name='id_etat' value='3'>
                             <button type="submit" class="btn btn-sm btn-success exclude-cell">Acceptée</button>
                             <input type="hidden" name="action" value="etat">
@@ -185,6 +179,8 @@
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
                             <input type='hidden' name='id_etat' value='4'>
+                            <input type='hidden' name='duree' value='<?=$crud->duree?>'>
+                            <input type='hidden' name='id_employe' value='<?=$crud->id_employe?>'>
                             <button type="submit" class="btn btn-sm btn-warning exclude-cell">Refusée</button>
                             <input type="hidden" name="action" value="etat">
                         </form>
@@ -192,6 +188,8 @@
                         <form action='index.php?action=crudconges&id=<?=$id?>' method='post'>
                             <input type="hidden" name='id_conges' value='<?=$id_conges?>'>
                             <input type='hidden' name='id_etat' value='5'>
+                            <input type='hidden' name='duree' value='<?=$crud->duree?>'>
+                            <input type='hidden' name='id_employe' value='<?=$crud->id_employe?>'>
                             <button type="submit" class="btn btn-sm btn-warning exclude-cell">Annulée</button>
                             <input type="hidden" name="action" value="etat">
                         </form>

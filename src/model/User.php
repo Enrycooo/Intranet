@@ -169,9 +169,10 @@ class User_Model
             $stmt->execute();
         }
         
-        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $telephone, string $password, int $poste, int $service){
+        public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $telephone, string $password, int $poste, int $service, string $conges_dispo){
             $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, username = :username, email = :email,
-                                                                telephone = :telephone, password = :password, id_poste = :poste, id_service = :service
+                                                                telephone = :telephone, password = :password, id_poste = :poste, id_service = :service,
+                                                                conges_dispo = :conges_dispo
                                                                 WHERE id_employe = :id_employe");
             $stmt->bindValue(':id_employe', $id_employe);
             $stmt->bindValue(':nom', $nom);
@@ -182,6 +183,7 @@ class User_Model
             $stmt->bindValue(':password', $password);
             $stmt->bindValue(':poste', $poste);
             $stmt->bindValue(':service', $service);
+            $stmt->bindValue(':conges_dispo', $conges_dispo);
             $stmt->execute();
         }
 }

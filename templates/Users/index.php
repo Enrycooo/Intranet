@@ -204,7 +204,7 @@
                   </div>
                     <div class="col-sm-6 flex-column d-flex">
                         <label class="form-control-label px-3" for="password">Mot de passe</label>
-                        <input type="password" id="passwordedit" name='password' required/>
+                        <input type="password" id="passwordedit" name='password'/>
                     </div>
                 </div>
                 <div class="row">
@@ -286,6 +286,7 @@
                 <th>telephone</th>
                 <th>poste</th>
                 <th>Service</th>
+                <th>conges dispo</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -306,6 +307,7 @@
                     <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->id_poste ?></td>
                     <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->id_service ?></td>
                     <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->conges_dispo ?></td>
+                    <td data-id="<?= $id_employe ?>"><?= $crud->conges_dispo ?></td>
                     <td>
                         <div class='d-flex text-center'>
                             <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
