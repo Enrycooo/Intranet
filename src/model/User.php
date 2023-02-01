@@ -152,7 +152,7 @@ class User_Model
             $stmt->execute();
         }
         
-        public function addCongesDispo(int $id_employe, int $conges){
+        public function addCongesDispo(int $id_employe, string $conges){
             $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET conges_dispo = conges_dispo + :conges WHERE id_employe = :id_employe");
             $stmt->bindValue(':id_employe', $id_employe);
             $stmt->bindValue(':conges', $conges);

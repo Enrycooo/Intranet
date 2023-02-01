@@ -83,7 +83,6 @@ class CrudUser
                 $id_employe = null;
                 if (!empty($input['id_employe'])){
                     $id_employe = $input['id_employe'];
-                    echo $id_employe;
                 } else {
                     throw new \Exception('Les données du formulaire sont invalides.');
                 }
@@ -98,7 +97,6 @@ class CrudUser
                 if (!empty($input['id_employe']) && !empty($input['conges'])){
                     $id_employe = $input['id_employe'];
                     $conges = $input['conges'];
-                    echo $id_employe;
                 } else {
                     throw new \Exception('Les données du formulaire sont invalides.');
                 }
