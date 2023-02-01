@@ -25,7 +25,7 @@ class CreateCongesAdmin
             $duree = null;
             $commentaire = null;
             if (!empty($input['id_employe']) && !empty($input['date_debut']) && !empty($input['date_fin']) && !empty($input['id_raison']) && !empty($input['duree'])) {
-                $id_employe = $input['id_employe'];
+                $id_emp = $input['id_employe'];
                 $id_raison = $input['id_raison'];
                 $debut_type = $input['debut_type'];
                 $fin_type = $input['fin_type'];
@@ -52,7 +52,15 @@ class CreateCongesAdmin
 
             $congesModel = new Conges_Model();
             $congesModel->connection = new DatabaseConnection();
-            $success = $congesModel->createCongeAdmin($id_employe, $id_raison, $date_debut, $date_fin, $debut_type, $fin_type, $duree, $commentaire);
+            $success = $congesModel->createCongeAdmin($id_emp, $id_raison, $date_debut, $date_fin, $debut_type, $fin_type, $duree, $commentaire);
+            
+            if($id_raison == 3){
+            }else{
+                $congesdispo = new Conges_Model();
+                $congesdispo->connection = new DatabaseConnection();
+                $congesdispo->DeleteCongesPris($id_employe, $duree);
+            }
+            
             if (!$success) {
                 throw new \Exception('Impossible d\'ajouter le conges !');
             } else {

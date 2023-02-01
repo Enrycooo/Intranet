@@ -246,4 +246,13 @@ class Conges_Model
             $stmt->bindValue(':id_etat', $id_etat);
             $stmt->execute();
         }
+        
+        //Cette fonction va retirer le nombre de jours de conges pris des conges dispo de l'employé
+        public function DeleteCongesPris(int $id_employe, string $duree){
+            $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET conges_dispo = conges_dispo - :duree
+                                                                WHERE id_employe = :id_employe");
+            $stmt->bindValue(':id_employe', $id_employe);
+            $stmt->bindValue(':duree', $duree);
+            $stmt->execute();
+        }
 }

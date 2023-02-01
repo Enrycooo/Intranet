@@ -235,6 +235,13 @@
                          </select>
                     </div>
                 </div>
+          <hr>
+                <div class="row">
+                    <div class="col-sm-6 flex-column d-flex">
+                        <label class=form-control-label px-3" for="username">Nombre de congés dispo</label>
+                        <input type="text" id="conges_dispo" name='conges_dispo' required/>
+                    </div>
+                </div>
           <input type="hidden" id="dataId" name="id_employe">
           <input type="hidden" name="action" value="update">
         </div>
@@ -298,11 +305,12 @@
                     <td data-id="<?= $id_employe ?>"><?= $crud->service ?></td>
                     <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->id_poste ?></td>
                     <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->id_service ?></td>
+                    <td style="display:none;" data-id="<?= $id_employe ?>"><?= $crud->conges_dispo ?></td>
                     <td>
                         <div class='d-flex text-center'>
                             <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary update" data-bs-toggle="modal" data-bs-target="#update">Modifier</button>
                             &nbsp;
-                            <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary ajoutconges" data-bs-toggle="modal" data-bs-target="#ajoutconges">Ajouter</button>
+                            <button data-id="<?= $id_employe ?>" type="button" class="btn btn-sm btn-primary ajoutconges" data-bs-toggle="modal" data-bs-target="#ajoutconges">Congés en +</button>
                             &nbsp;
                             <button data-id='<?= $id_employe ?>' type="button" class="btn btn-sm btn-danger delete" data-bs-toggle="modal" data-bs-target="#delete">Supprimer</button>
                         </div>
@@ -360,6 +368,7 @@
         var cellData5 = row.querySelector("td:nth-child(9)").textContent;
         var cellData6 = row.querySelector("td:nth-child(10)").textContent;
         var cellData7 = row.querySelector("td:nth-child(6)").textContent;
+        var cellData8 = row.querySelector("td:nth-child(11)").textContent;
 
         // Mise des données récupérées dans l'input du modal
         document.querySelector("#nomedit").value = cellData1;
@@ -367,6 +376,7 @@
         document.querySelector("#usernameedit").value = cellData3;
         document.querySelector("#emailedit").value = cellData4;
         document.querySelector("#telephoneedit").value = cellData7;
+        document.querySelector("#conges_dispo").value = cellData8;
         document.querySelector("#dataId").value = dataId;
         
         //Envoie des options de POSTE et SERVICE
