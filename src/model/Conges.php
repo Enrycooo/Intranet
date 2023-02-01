@@ -141,6 +141,35 @@ class Conges_Model
                 return $cruds;
         }
         
+        public function getCrudHistoriqueConges(){
+                $stmt= $this->connection->getConnection()->query("
+                    SELECT id, date_ajout, nb_ajouter, motif, H.id_admin, H.id_employe,
+                    EM.nom AS admin_nom, EM.prenom AS admin_prenom, EM2.nom AS emp_nom,
+                    EM2.prenom AS emp_prenom
+                    FROM historique_conges H INNER JOIN employe EM ON H.id_admin = EM.id_employe
+                    INNER JOIN employe EM2 ON H.id_employe = EM2.id_employe
+                    ORDER BY date_ajout DESC;
+                    ");
+                
+                $cruds = [];
+                while (($row = $stmt->fetch())) {
+                    $crud = new Conge();
+                    $crud->id_historique = $row['id'];
+                    $crud->date_ajout = $row['date_ajout'];
+                    $crud->nb_ajouter = $row['nb_ajouter'];
+                    $crud->motif = $row['motif'];
+                    $crud->id_admin = $row['id_admin'];
+                    $crud->id_employe = $row['id_employe'];
+                    $crud->admin_nom = $row['admin_nom'];
+                    $crud->admin_prenom = $row['admin_prenom'];
+                    $crud->emp_nom = $row['emp_nom'];
+                    $crud->emp_prenom = $row['emp_prenom'];
+                    $cruds[] = $crud;
+                }
+                
+                return $cruds;
+        }
+        
         public function getCalendar(){
                 $stmt= $this->connection->getConnection()->query("
                     SELECT id_conges, date_debut, date_fin, R.libelle AS raison

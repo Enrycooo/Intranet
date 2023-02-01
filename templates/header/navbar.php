@@ -32,6 +32,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="index.php?action=crudusers&id=<?=$id?>">Tous les utilisateurs</a></li>
+                            <li><a class="dropdown-item" href="index.php?action=crudhistorique&id=<?=$id?>">Historique d'ajout de congés</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

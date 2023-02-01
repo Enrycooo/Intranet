@@ -50,6 +50,9 @@
           <label data-error="wrong" data-success="right" for="form3">Ajouter des jours de congés</label>
           <input type="text" id="form3" class="form-control validate" name='conges'>
           
+          <label data-error="wrong" data-success="right" for="form3">Motif de l'ajout</label>
+          <input type="text" id="form3" class="form-control validate" name='motif'>
+          
           <input type="hidden" id="id" name='id_employe' value='<?=$id_employe?>'>
           <input type="hidden" name="action" value="conges">
         </div>

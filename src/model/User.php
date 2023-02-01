@@ -158,6 +158,15 @@ class User_Model
             $stmt->bindValue(':conges', $conges);
             $stmt->execute();
         }
+        public function addCongesHistorique(int $id_admin, int $id_employe, string $conges, string $motif){
+            $stmt = $this->connection->getConnection()->prepare("INSERT INTO historique_conges (date_ajout, nb_ajouter, motif, id_admin, id_employe)
+                                                            VALUES (current_timestamp(), :conges, :motif, :id_admin, :id_employe)");
+            $stmt->bindValue(':id_admin', $id_admin);
+            $stmt->bindValue(':motif', $motif);
+            $stmt->bindValue(':id_employe', $id_employe);
+            $stmt->bindValue(':conges', $conges);
+            $stmt->execute();
+        }
         
         public function updateUser(int $id_employe, string $nom, string $prenom, string $username, string $email, string $telephone, string $password, int $poste, int $service){
             $stmt = $this->connection->getConnection()->prepare("UPDATE employe SET nom = :nom, prenom = :prenom, username = :username, email = :email,

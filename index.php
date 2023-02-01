@@ -35,6 +35,7 @@ require_once('src/controllers/pdf.php');
 require_once('src/controllers/conges/createcongesadmin.php');
 require_once('src/controllers/perso/demandedeconges.php');
 require_once('src/controllers/perso/infoperso.php');
+require_once('src/controllers/users/historique_conges.php');
 
 use Application\Controllers\Login\Login;
 use Application\Controllers\Homepage\Homepage;
@@ -52,6 +53,7 @@ use Application\Controllers\PDF\PDF;
 use Application\Controllers\CreateCongesAdmin\CreateCongesAdmin;
 use Application\Controllers\DemandeDeConges\DemandeConges;
 use Application\Controllers\InfoPerso\InfoPerso;
+use Application\Controllers\CrudHistorique\CrudHistorique;
 
 
 try {
@@ -210,6 +212,15 @@ try {
                 
                 (new Navbar())->execute();
                 (new DemandeConges())->Demande($id_employe);
+            } else {
+                throw new Exception('Erreur de ma');
+            }
+        }elseif($_GET['action'] === 'crudhistorique'){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                $id_employe = $_GET['id'];
+                
+                (new Navbar())->execute();
+                (new CrudHistorique())->CRUD($id_employe);
             } else {
                 throw new Exception('Erreur de ma');
             }
